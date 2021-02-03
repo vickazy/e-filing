@@ -7,7 +7,7 @@ class M_pegawai extends CI_Model
 
 	public function show()
 	{
-		$data = $this->db->select('*')->from($this->_table . ' a')->join('tbl_jabatan b', 'a.id_jabatan = b.id_jabatan', 'left')->get()->result_array();
+		$data = $this->db->select('*')->from($this->_table . ' a')->join('tbl_jabatan b', 'a.id_jabatan = b.id_jabatan', 'left')->order_by('a.id_jabatan asc, a.nm_pegawai asc')->get()->result_array();
 		return $data;
 	}
 
