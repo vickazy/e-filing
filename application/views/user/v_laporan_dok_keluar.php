@@ -36,21 +36,14 @@
 											<div class="form-group row">
 												<label class="col-sm-2 col-form-label">Tgl. Dokumen</label>
 												<div class="col-sm-3">
-													<select class="form-control selectpicker" name="" id="">
-														<?php $arr_bln = array(
-															1 => 'januari', 'februari', 'maret', 'april', 'mei', 'juni', 'jul', 'agustus', 'september', 'oktober', 'november', 'desember'
-														);
-														foreach ($arr_bln as $key => $val) : ?>
-															<option value="<?= $key ?>"><?= ucfirst($val); ?></option>
-														<?php endforeach; ?>
-													</select>
-												</div>
-												<div class="col-sm-2">
-													<select class="form-control selectpicker" name="" id="">
-														<?php for ($i = date('Y') - 5; $i < date('Y') + 5; $i++) : ?>
-															<option value="<?= $i ?>"><?= $i; ?></option>
-														<?php endfor; ?>
-													</select>
+													<div class="input-group date" id="datepicker">
+														<input type="text" class="form-control" name="tgl_dokumen" id="tgl_dokumen">
+														<div class="input-group-append">
+															<span class="input-group-text">
+																<i class="fa fa-fw fa-calendar-alt"></i>
+															</span>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
