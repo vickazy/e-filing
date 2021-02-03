@@ -139,7 +139,7 @@ class Dokumen_masuk extends CI_Controller
 			'jns_dokumen' => $data['jns_dokumen'],
 			'dari' => $data['dari'],
 			'disposisi' => $list,
-			'perihal' => strtoupper(reverse($data['perihal'])),
+			'perihal' => $data['perihal'],
 			'lampiran' => $data['lampiran'],
 			'kategori' => $data['kategori'],
 			'catatan' => $data['catatan'],

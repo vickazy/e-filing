@@ -148,11 +148,8 @@ class Dokumen_keluar extends CI_Controller
 		$data = $this->m_dok_keluar->read($key)->row_array();
 
 		$unit = unserialize($data['unit_tujuan']);
-		// $list = array_walk($unit, function(&$val, $key){
-		// 	$val = str_replace(' & ', ' and ', $val);
-		// });
 		$list = array_map(function ($val) {
-			return html_entity_decode($val, ENT_QUOTES, 'UTF-8');
+			return htmlspecialchars_decode($val);
 		}, $unit);
 
 		$respon = array(
@@ -161,7 +158,7 @@ class Dokumen_keluar extends CI_Controller
 			'jns_dokumen' => $data['jns_dokumen'],
 			'dari' => $data['dari'],
 			'unit_tujuan' => $list,
-			'perihal' => strtoupper(reverse($data['perihal'])),
+			'perihal' => $data['perihal'],
 			'pembuat' => $data['pembuat'],
 			'lampiran' => $data['lampiran'],
 			'kategori' => $data['kategori'],

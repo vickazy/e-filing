@@ -14,25 +14,7 @@ if (!function_exists('input')) {
 	function input($var)
 	{
 		$ci = get_instance();
-		$input = htmlspecialchars(strip_tags(trim($ci->input->post($var, true))), ENT_QUOTES);
-		return $input;
-	}
-}
-
-/*
-|--------------------------------------------------------------------------
-| Convert htmlentities
-|--------------------------------------------------------------------------
-|
-| untuk mengembalikan tag html yang terenkripsi.
-|
-*/
-
-if (!function_exists('reverse')) {
-	function reverse($var)
-	{
-		$ci = get_instance();
-		$input = html_entity_decode(strtolower($var), ENT_QUOTES, 'UTF-8');
+		$input = strip_tags(trim($ci->input->post($var, true)));
 		return $input;
 	}
 }

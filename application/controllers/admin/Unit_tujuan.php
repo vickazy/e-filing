@@ -103,7 +103,7 @@ class Unit_tujuan extends CI_Controller
 		$respon = array(
 			'no' => $data['no'],
 			'kd_unit' => $data['kd_unit'],
-			'nm_unit' => strtoupper(reverse($data['nm_unit']))
+			'nm_unit' => $data['nm_unit']
 		);
 		echo json_encode($respon);
 		exit;
