@@ -1535,7 +1535,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`username`, `nm_user`, `password`, `lv_user`) VALUES
-('admin', 'Admin', '21232f297a57a5a743894a0e4a801fc3', 'admin'),
+('admin', 'Admin', 'ae1561c6eda3c6d46599ab1cdcea82eb', 'admin'),
 ('user', 'User', 'ee11cbb19052e40b07aac0ca060c23ee', 'user');
 
 --
