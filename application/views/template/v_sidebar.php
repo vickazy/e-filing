@@ -87,7 +87,7 @@
 						</ul>
 					</li>
 
-					<li class="nav-item has-treeview">
+					<!-- <li class="nav-item has-treeview">
 						<a href="#" class="nav-link">
 							<i class="nav-icon fa fa-clipboard-list"></i>
 							<p>
@@ -106,13 +106,13 @@
 									<p>Dokumen Keluar</p>
 								</a>
 							</li>
-							<!-- <li class="nav-item">
+							<li class="nav-item">
 								<a href="#" class="nav-link" id="report-dokumen-disposisi">
 									<p>Dokumen Disposisi</p>
 								</a>
-							</li> -->
+							</li>
 						</ul>
-					</li>
+					</li> -->
 				<?php endif; ?>
 
 			</ul>
