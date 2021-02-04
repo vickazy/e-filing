@@ -12,15 +12,20 @@ class M_laporan_dok_keluar extends CI_Model
 	var $table = 'tbl_dok_keluar';
 	var $column_order = array(null, 'a.no_dokumen', 'a.perihal', 'c.nm_pegawai', 'b.jns_dokumen', 'd.jns_kategori', 'a.createDate', null);
 	var $column_search = array('a.no_dokumen', 'a.perihal', 'c.nm_pegawai', 'b.jns_dokumen', 'd.jns_kategori', 'a.unit_tujuan');
-	var $order = array('a.createDate' => 'desc');
+	var $order = array('a.tgl_dokumen' => 'desc');
 
 	function _get_datatable_query()
 	{
-		// $this->db->from($this->table);
+
 		$this->db->select('a.*, c.nm_pegawai, b.jns_dokumen, d.jns_kategori')->from($this->table . ' a')
 			->join('tbl_jns_dokumen b', 'a.jns_dokumen = b.id_jns_dokumen', 'left')
 			->join('tbl_pegawai c', 'a.pembuat = c.id_pegawai', 'left')
 			->join('tbl_kategori d', 'a.kategori = d.id_kategori', 'left');
+
+		if (input('tgl_awal') != '' && input('tgl_akhir') != '') {
+			$where = "a.tgl_dokumen between '" . parse_tgl(input('tgl_awal')) . "' and '" . parse_tgl(input('tgl_akhir')) . "'";
+			$this->db->where($where);
+		}
 
 		$i = 0;
 		foreach ($this->column_search as $item) {
