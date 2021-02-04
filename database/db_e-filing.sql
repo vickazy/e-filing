@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2021 at 06:25 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Waktu pembuatan: 04 Feb 2021 pada 04.51
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_e-filing`
+-- Database: `db_e-filing`;
 --
 drop database if exists `db_e-filing`;
 create database `db_e-filing`;
@@ -27,7 +28,7 @@ use `db_e-filing`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_config`
+-- Struktur dari tabel `tbl_config`
 --
 
 CREATE TABLE `tbl_config` (
@@ -39,7 +40,7 @@ CREATE TABLE `tbl_config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_config`
+-- Dumping data untuk tabel `tbl_config`
 --
 
 INSERT INTO `tbl_config` (`no`, `thn_dokumen`, `nm_group`, `status`, `CreateDate`) VALUES
@@ -48,7 +49,7 @@ INSERT INTO `tbl_config` (`no`, `thn_dokumen`, `nm_group`, `status`, `CreateDate
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dok_keluar`
+-- Struktur dari tabel `tbl_dok_keluar`
 --
 
 CREATE TABLE `tbl_dok_keluar` (
@@ -69,19 +70,25 @@ CREATE TABLE `tbl_dok_keluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_dok_keluar`
+-- Dumping data untuk tabel `tbl_dok_keluar`
 --
 
 INSERT INTO `tbl_dok_keluar` (`id_dokumen`, `no_dokumen`, `jns_dokumen`, `dari`, `unit_tujuan`, `perihal`, `pembuat`, `lampiran`, `kategori`, `sts_dokumen`, `catatan`, `path_folder`, `file_dokumen`, `createDate`) VALUES
-(1, '01/0001-1/SMG', 1, 'SMG', 'a:1:{i:0;s:33:\"SCG - STRATEGIC PROCUREMENT GROUP\";}', 'PENYAMPAIAN INFORMASI PERALIHAN PERLENGKAPAN KANTOR', 8, 1, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 13:59:59'),
-(2, '01/0002-1/SMG', 1, 'SMG', 'a:1:{i:0;s:33:\"SCG - STRATEGIC PROCUREMENT GROUP\";}', 'PENARIKAN KABEL LAN', 10, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 14:00:36'),
-(3, '01/0001-3/SMG', 3, 'SMG', 'a:1:{i:0;s:13:\"RO &amp; Area\";}', 'SURAT ARAHAN FOKUS BISNIS SEGMENT SEMESTER I TAHUN 2021', 8, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 14:01:52'),
-(4, '01/0002-3/SMG', 3, 'SMG', 'a:1:{i:0;s:13:\"RO &amp; Area\";}', 'PENETAPAN SINGLE PRICE PEMBIAYAAN SME', 4, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 14:02:40');
+(1, '01/0001-1/SMG', 1, 'SMG', 'a:1:{i:0;s:33:\"SCG - STRATEGIC PROCUREMENT GROUP\";}', 'PENYAMPAIAN INFORMASI PERALIHAN PERLENGKAPAN KANTOR', 8, 1, '1', 'Sent', NULL, 'berkas-keluar/2021-02', 'MK-0001-SCG.PDF', '2021-02-02 13:59:59'),
+(2, '01/0002-1/SMG', 1, 'SMG', 'a:1:{i:0;s:33:\"SCG - STRATEGIC PROCUREMENT GROUP\";}', 'PENARIKAN KABEL LAN', 39, 0, '1', 'Sent', NULL, 'berkas-keluar/2021-02', 'MK-0002-SCG.PDF', '2021-02-02 14:00:36'),
+(3, '01/0001-3/SMG', 3, 'SMG', 'a:1:{i:0;s:9:\"RO & Area\";}', 'SURAT ARAHAN FOKUS BISNIS SEGMENT SEMESTER I TAHUN 2021', 8, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 14:01:52'),
+(4, '01/0002-3/SMG', 3, 'SMG', 'a:1:{i:0;s:9:\"RO & Area\";}', 'PENETAPAN SINGLE PRICE PEMBIAYAAN SME', 6, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 14:02:40'),
+(5, '01/0003-3/SMG', 3, 'SMG', 'a:1:{i:0;s:29:\"PT ARWIC TECHNOLOGY SOLUSINDO\";}', 'REMINDER PKS WEB SMALLHOLDER FINANCING INFORMATION SYSTEM &#40;FSIS&#41;', 34, 0, '1', 'Pending', NULL, NULL, NULL, '2021-02-02 09:28:53'),
+(6, '01/0004-3/SMG', 3, 'SMG', 'a:1:{i:0;s:15:\"AREA BALIKPAPAN\";}', 'UNDANGAN PERTEMUAN DENGAN NASABAH PLASMA SAWIT AREA BALIKPAPAN UNTUK OPTIMALISASI POTENSI PIPELINE DAN PRODUCT HOLDING DI BSI', 9, 0, '1', 'Sent', NULL, NULL, NULL, '2021-02-02 09:30:21'),
+(7, '01/0005-3/SMG', 3, 'SMG', 'a:1:{i:0;s:16:\"AREA BANJARMASIN\";}', 'UNDANGAN PERTEMUAN DENGAN NASABAH PLASMA SAWIT AREA BANJARMASIN UNTUK OPTIMALISASI POTENSI PIPELINE DAN PRODUCT HOLDING DI BSI', 9, 0, '1', 'Sent', NULL, NULL, NULL, '2021-02-02 09:30:53'),
+(8, '01/0006-3/SMG', 3, 'SMG', 'a:1:{i:0;s:14:\"AREA PONTIANAK\";}', 'UNDANGAN PERTEMUAN DENGAN NASABAH PLASMA AREA PONTIANAK UNTUK  OPTIMALISASI POTENSI PIPELINE DAN PRODUCT HOLDING DI BSI', 9, 0, '1', 'Sent', NULL, NULL, NULL, '2021-02-02 09:31:34'),
+(9, '01/0003-1/SMG', 1, 'SMG', 'a:1:{i:0;s:44:\"BP2 - HUMAN CAPITAL BUSINESS PARTNER 2 GROUP\";}', 'PERMOHONAN PENYUSUAIAN JABATAN SESUAI STRUKTUR ORGANISASI SME BUSINESS GROUP', 2, 1, '1', 'Sent', NULL, 'berkas-keluar/2021-02', 'MK-0003-HCBP_2.PDF', '2021-02-03 18:15:28'),
+(10, '01/0004-1/SMG', 1, 'SMG', 'a:1:{i:0;s:23:\"RRG - RETAIL RISK GROUP\";}', 'PERMOHONAN UNTUK DILAKUKANNYA PROSES SCORING MANUAL SELAMA APPEL BELUM IMPLEMENTASI', 10, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-03 18:53:56');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dok_masuk`
+-- Struktur dari tabel `tbl_dok_masuk`
 --
 
 CREATE TABLE `tbl_dok_masuk` (
@@ -103,16 +110,19 @@ CREATE TABLE `tbl_dok_masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_dok_masuk`
+-- Dumping data untuk tabel `tbl_dok_masuk`
 --
 
 INSERT INTO `tbl_dok_masuk` (`id_dokumen`, `no_dokumen`, `jns_dokumen`, `dari`, `perihal`, `lampiran`, `kategori`, `tgl_dokumen`, `tgl_disposisi`, `disposisi`, `catatan`, `path_folder`, `file_dokumen`, `tgl_diterima`, `createDate`) VALUES
-(1, '01/0003-1/DSG', 1, 'DSG - DISTRIBUTION STRATEGY GROUP', 'UNDANGAN RAPAT KOORDINASI PERIHAL RENCANA SOSIALISASI WHOLESALE RETAIL &AMP; RETAIL RETAIL KEPADA CABANG EX BNIS &AMP; EX BRIS', 0, 1, '2021-02-02', '2021-02-02', 'a:1:{i:0;s:19:\"Erik Mahfud Fahtoni\";}', NULL, NULL, NULL, '2021-02-02', '2021-02-02 15:27:41');
+(1, '01/0003-1/DSG', 1, 'DSG - DISTRIBUTION STRATEGY GROUP', 'UNDANGAN RAPAT KOORDINASI PERIHAL RENCANA SOSIALISASI WHOLESALE RETAIL &AMP; RETAIL RETAIL KEPADA CABANG EX BNIS &AMP; EX BRIS', 0, 1, '2021-02-02', NULL, NULL, NULL, 'berkas-masuk/2021-02', 'DSG-0003.PDF', '2021-02-02', '2021-02-02 15:27:41'),
+(2, '01/0002-1/CFA', 1, 'CFA - CORPORATE FINANCE & ACCOUNTING GROUP', 'PENYAMPAIAN PANDUAN TEKNIS PEMBUKUAN & PEMBAYARAN KEPADA PIHAK KETIGA', 1, 1, '2021-02-01', '2021-02-03', 'a:1:{i:0;s:13:\"Risqi Widayat\";}', NULL, 'berkas-masuk/2021-02', 'CFA-0002.PDF', '2021-02-02', '2021-02-03 11:20:04'),
+(3, '23/0064-1/ACG', 1, 'ACG', 'PENYAMPAIAN PERUBAHAN PERSENTASE FUND TRANSFER PRICING (FTP) USD/VALAS DALAM PERHITUNGAN CONTRIBUTION MARGIN (CM) PER BULAN JANUARI 2021', 1, 1, '2021-01-29', '2021-02-03', 'a:3:{i:0;s:11:\"NUR PRATOMO\";i:1;s:13:\"RISQI WIDAYAT\";i:2;s:11:\"ROSSY YANTI\";}', 'untuk diketahui para DH', 'berkas-masuk/2021-02', 'ACG-0064.PDF', '2021-02-02', '2021-02-03 12:05:56'),
+(4, '01/002-1/PRI', 1, 'PRG - PORTFOLIO RISK & RISK INTEGRATION GROUP', 'PERMOHONAN ACTION PLAN HASIL STRESS TEST BANK SYARIAH INDONESIA', 0, 1, '2021-02-01', '2021-02-03', 'a:2:{i:0;s:13:\"RISQI WIDAYAT\";i:1;s:11:\"ROSSY YANTI\";}', NULL, 'berkas-masuk/2021-02', 'PRI-002.PDF', '2021-02-03', '2021-02-03 19:23:17');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_jabatan`
+-- Struktur dari tabel `tbl_jabatan`
 --
 
 CREATE TABLE `tbl_jabatan` (
@@ -122,7 +132,7 @@ CREATE TABLE `tbl_jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_jabatan`
+-- Dumping data untuk tabel `tbl_jabatan`
 --
 
 INSERT INTO `tbl_jabatan` (`id_jabatan`, `nm_jabatan`, `createDate`) VALUES
@@ -134,7 +144,7 @@ INSERT INTO `tbl_jabatan` (`id_jabatan`, `nm_jabatan`, `createDate`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_jns_dokumen`
+-- Struktur dari tabel `tbl_jns_dokumen`
 --
 
 CREATE TABLE `tbl_jns_dokumen` (
@@ -146,18 +156,18 @@ CREATE TABLE `tbl_jns_dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_jns_dokumen`
+-- Dumping data untuk tabel `tbl_jns_dokumen`
 --
 
 INSERT INTO `tbl_jns_dokumen` (`id_jns_dokumen`, `jns_dokumen`, `keterangan`, `counter_dokumen`, `createDate`) VALUES
-(1, 'Memo', 'Memo Group', 2, '2021-01-27 00:00:00'),
+(1, 'Memo', 'Memo Group', 4, '2021-01-27 00:00:00'),
 (2, 'Nota', 'Nota Group', 0, '2021-01-27 00:00:00'),
-(3, 'Surat', 'Surat Group', 2, '2021-01-27 00:00:00');
+(3, 'Surat', 'Surat Group', 6, '2021-01-27 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_kategori`
+-- Struktur dari tabel `tbl_kategori`
 --
 
 CREATE TABLE `tbl_kategori` (
@@ -168,7 +178,7 @@ CREATE TABLE `tbl_kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_kategori`
+-- Dumping data untuk tabel `tbl_kategori`
 --
 
 INSERT INTO `tbl_kategori` (`id_kategori`, `jns_kategori`, `keterangan`, `createDate`) VALUES
@@ -181,7 +191,7 @@ INSERT INTO `tbl_kategori` (`id_kategori`, `jns_kategori`, `keterangan`, `create
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_pegawai`
+-- Struktur dari tabel `tbl_pegawai`
 --
 
 CREATE TABLE `tbl_pegawai` (
@@ -192,29 +202,58 @@ CREATE TABLE `tbl_pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_pegawai`
+-- Dumping data untuk tabel `tbl_pegawai`
 --
 
 INSERT INTO `tbl_pegawai` (`id_pegawai`, `nm_pegawai`, `id_jabatan`, `createDate`) VALUES
-(1, 'Okky F Achamd', 1, '2021-01-29 09:25:39'),
-(2, 'Risqi Widayat', 2, '2021-01-29 09:25:52'),
-(3, 'M Syukron Habiby', 2, '2021-01-29 09:26:06'),
-(4, 'Erik Mahfud Fahtoni', 3, '2021-02-02 08:06:27'),
-(5, 'Jerri Fabian Irman', 3, '2021-02-02 08:06:48'),
-(6, 'Abda Arief', 3, '2021-02-02 08:07:03'),
-(7, 'Tohani', 3, '2021-02-02 08:07:24'),
-(8, 'Sylvi Oktarina', 3, '2021-02-02 08:07:41'),
-(9, 'Ade Fatimah Rahmawati', 4, '2021-02-02 08:07:58'),
-(10, 'Imam Maulana Ibrahim', 4, '2021-02-02 08:08:09'),
-(11, 'Fatma Sri Santrini', 3, '2021-02-02 08:08:23'),
-(12, 'Fajar Ramadhan', 3, '2021-02-02 08:08:40'),
-(13, 'Galih Ngesti Pertiwi', 4, '2021-02-02 08:09:04'),
-(14, 'Herman Susanto', 3, '2021-02-02 08:09:14');
+(1, 'AGUS SUHENDRO', 1, '2021-01-29 09:25:39'),
+(2, 'RISQI WIDAYAT', 2, '2021-01-29 09:25:52'),
+(3, 'ROSSY YANTI', 2, '2021-01-29 09:26:06'),
+(4, 'NUR PRATOMO', 2, '2021-02-02 08:06:27'),
+(5, 'ARDIAN WIRYANA', 3, '2021-02-02 08:06:48'),
+(6, 'ERIK MAHFUD FATHONI', 3, '2021-02-02 08:07:03'),
+(7, 'FEBBY HARZUFAYA', 3, '2021-02-02 08:07:24'),
+(8, 'SYLVI OKTARINA', 3, '2021-02-02 08:07:41'),
+(9, 'JERRI FABIAN IRMAN', 3, '2021-02-02 08:07:58'),
+(10, 'WHISNU WARDHANA', 3, '2021-02-02 08:08:09'),
+(11, 'AFFAN MARDIKA', 3, '2021-02-02 08:08:23'),
+(12, 'AMELIA RAMADHIANISA', 3, '2021-02-02 08:08:40'),
+(13, 'ARIF MUDA RAMBE', 3, '2021-02-02 08:09:04'),
+(14, 'BAGUS REFALDI', 3, '2021-02-02 08:09:14'),
+(15, 'FAJAR RAMADHAN', 3, '2021-02-03 11:38:23'),
+(16, 'FATMA SRI SANTRINI', 3, '2021-02-03 11:38:37'),
+(17, 'GALISHIA PUTRY', 3, '2021-02-03 11:39:26'),
+(18, 'HERMAN SUSANTO', 3, '2021-02-03 11:39:36'),
+(19, 'I GUSTI AYU NADYA', 3, '2021-02-03 11:40:02'),
+(20, 'IMAM SYUHADA', 3, '2021-02-03 11:40:21'),
+(21, 'INTAN ANDISTA PRATIWI', 3, '2021-02-03 11:40:42'),
+(22, 'KHAIRUL ANWAR', 3, '2021-02-03 11:40:56'),
+(23, 'MILA JAMILAH', 3, '2021-02-03 11:41:12'),
+(24, 'NIA AYU ANGGRAENI', 3, '2021-02-03 11:41:31'),
+(25, 'NOVARIANTI', 3, '2021-02-03 11:42:04'),
+(26, 'NURAYU DESTA ZOLANDA', 3, '2021-02-03 11:42:42'),
+(27, 'OKKI KURNITA ROKHMALA DEVI', 3, '2021-02-03 11:43:08'),
+(28, 'RANI KUSUMA WIJAYANTI', 3, '2021-02-03 11:43:34'),
+(29, 'RIZKI PRATAMA WIJAYA', 3, '2021-02-03 11:44:13'),
+(30, 'SARI KASTURI', 3, '2021-02-03 11:44:37'),
+(31, 'SRI UTAMI', 3, '2021-02-03 11:44:45'),
+(32, 'YUDI ARIANTO', 3, '2021-02-03 11:45:01'),
+(33, 'YUYUN MARITA', 3, '2021-02-03 11:45:33'),
+(34, 'GALIH NGESTI PERTIWI', 4, '2021-02-03 11:45:47'),
+(35, 'IIS SUSANTI', 4, '2021-02-03 11:46:04'),
+(36, 'MUSTIKA APRILIA', 4, '2021-02-03 11:46:23'),
+(37, 'NANDA PRATIWI', 4, '2021-02-03 11:49:28'),
+(38, 'SITI FATIMAH', 4, '2021-02-03 11:50:09'),
+(39, 'IMAM MAULANA IBRAHIM', 4, '2021-02-03 11:54:12'),
+(40, 'ADE FATIMAH RAHMAWATI', 4, '2021-02-03 11:54:24'),
+(41, 'DENI HARYANTO', 4, '2021-02-03 11:54:40'),
+(42, 'JILUANI HARAHAP', 4, '2021-02-03 11:54:57'),
+(43, 'YUSRIANI DHALIMUNTHE', 4, '2021-02-03 11:55:13');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_unit`
+-- Struktur dari tabel `tbl_unit`
 --
 
 CREATE TABLE `tbl_unit` (
@@ -225,11 +264,11 @@ CREATE TABLE `tbl_unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_unit`
+-- Dumping data untuk tabel `tbl_unit`
 --
 
 INSERT INTO `tbl_unit` (`no`, `kd_unit`, `nm_unit`, `createDate`) VALUES
-(1, 'APG', 'AUDIT POLICY &AMP; COUNTERPART GROUP', '2021-02-01 15:31:25'),
+(1, 'APG', 'AUDIT POLICY & COUNTERPART GROUP', '2021-02-01 15:31:25'),
 (2, 'BP1', 'HUMAN CAPITAL BUSINESS PARTNER 1 GROUP', '2021-02-01 16:10:00'),
 (3, 'BP2', 'HUMAN CAPITAL BUSINESS PARTNER 2 GROUP', '2021-02-01 16:10:13'),
 (4, 'CB1', 'CORPORATE BUSINESS 1 GROUP', '2021-02-01 15:47:09'),
@@ -238,21 +277,21 @@ INSERT INTO `tbl_unit` (`no`, `kd_unit`, `nm_unit`, `createDate`) VALUES
 (7, 'CCG', 'CUSTOMER CARE GROUP', '2021-02-01 15:58:59'),
 (8, 'CF1', 'CONSUMER BUSINESS 1 GROUP', '2021-02-01 15:51:11'),
 (9, 'CF2', 'CONSUMER BUSINESS 2 GROUP', '2021-02-01 15:51:20'),
-(10, 'CFA', 'CORPORATE FINANCE &AMP; ACCOUNTING GROUP', '2021-02-01 16:12:17'),
-(11, 'CFG', 'CORPORATE FINANCE &AMP; SOLUTION GROUP', '2021-02-01 15:46:40'),
+(10, 'CFA', 'CORPORATE FINANCE & ACCOUNTING GROUP', '2021-02-01 16:12:17'),
+(11, 'CFG', 'CORPORATE FINANCE & SOLUTION GROUP', '2021-02-01 15:46:40'),
 (12, 'CMG', 'COMMERCIAL BUSINESS GROUP', '2021-02-01 15:48:06'),
 (13, 'CMR', 'COMMERCIAL RISK GROUP', '2021-02-01 16:07:41'),
 (14, 'CPG', 'COMPLAIANCE GROUP', '2021-02-01 16:08:35'),
 (15, 'CRR', 'CORPORATE RISK GROUP', '2021-02-01 16:07:22'),
-(16, 'CSG', 'CORPORATE SECRETARY &AMP; COMMUNICATION GROUP', '2021-02-01 15:45:13'),
-(17, 'CTG', 'CASH &AMP; TRADE OPERATIONS GROUP', '2021-02-01 15:57:39'),
+(16, 'CSG', 'CORPORATE SECRETARY & COMMUNICATION GROUP', '2021-02-01 15:45:13'),
+(17, 'CTG', 'CASH & TRADE OPERATIONS GROUP', '2021-02-01 15:57:39'),
 (18, 'DBB', 'DIGITAL BANKING BUSINESS GROUP', '2021-02-01 15:49:30'),
 (19, 'DBG', 'IT DIGITAL BANKING DEVELOPMENT GROUP', '2021-02-01 15:56:16'),
-(20, 'DBO', 'DIGITAL BANKING &AMP; ECHANNEL OPERATIONS GROUP', '2021-02-01 16:01:35'),
+(20, 'DBO', 'DIGITAL BANKING & ECHANNEL OPERATIONS GROUP', '2021-02-01 16:01:35'),
 (21, 'DSG', 'DISTRIBUTION STRATEGY GROUP', '2021-02-01 15:52:13'),
-(22, 'FHG', 'RETAIL FUNDING, HAJJ &AMP; UMRAH GROUP', '2021-02-01 15:52:52'),
+(22, 'FHG', 'RETAIL FUNDING, HAJJ & UMRAH GROUP', '2021-02-01 15:52:52'),
 (23, 'FOG', 'FINANCING OPERATIONS GROUP', '2021-02-01 15:57:16'),
-(24, 'HCP', 'HUMAN CAPITAL PLANNING &AMP; STRATEGY GROUP', '2021-02-01 16:09:25'),
+(24, 'HCP', 'HUMAN CAPITAL PLANNING & STRATEGY GROUP', '2021-02-01 16:09:25'),
 (25, 'HCS', 'HUMAN CAPITAL SERVICES GROUP', '2021-02-01 16:10:42'),
 (26, 'IB1', 'INSTITUTIONAL BANKING 1 GROUP', '2021-02-01 15:53:43'),
 (27, 'IB2', 'INSTITUTIONAL BANKING 2 GROUP', '2021-02-01 15:53:52'),
@@ -1503,24 +1542,24 @@ INSERT INTO `tbl_unit` (`no`, `kd_unit`, `nm_unit`, `createDate`) VALUES
 (1271, 'LGG', 'LEGAL GROUP', '2021-02-01 16:08:10'),
 (1272, 'MBG', 'MICRO BUSINESS GROUP', '2021-02-01 15:50:07'),
 (1273, 'MCG', 'MARKETING COMMUNICATION GROUP', '2021-02-01 15:45:40'),
-(1274, 'MOR', 'MARKET &AMP; OPERATIONAL GROUP', '2021-02-01 16:04:34'),
-(1275, 'PPG', 'POLICY &AMP; PROCEDURE GROUP', '2021-02-01 16:04:55'),
-(1276, 'PRG', 'PORTFOLIO RISK &AMP; RISK INTEGRATION GROUP', '2021-02-01 16:03:52'),
-(1277, 'PTG', 'PRODUCT &AMP; TRANSACTION BANKING GROUP', '2021-02-01 15:48:41'),
+(1274, 'MOR', 'MARKET & OPERATIONAL GROUP', '2021-02-01 16:04:34'),
+(1275, 'PPG', 'POLICY & PROCEDURE GROUP', '2021-02-01 16:04:55'),
+(1276, 'PRG', 'PORTFOLIO RISK & RISK INTEGRATION GROUP', '2021-02-01 16:03:52'),
+(1277, 'PTG', 'PRODUCT & TRANSACTION BANKING GROUP', '2021-02-01 15:48:41'),
 (1278, 'PWG', 'PAWNING GROUP', '2021-02-01 15:50:19'),
-(1279, 'RCG', 'RETAIL COLLECTION, RESTRUCTURING &AMP; RECOVERY GROUP', '2021-02-01 16:06:01'),
+(1279, 'RCG', 'RETAIL COLLECTION, RESTRUCTURING & RECOVERY GROUP', '2021-02-01 16:06:01'),
 (1280, 'RRG', 'RETAIL RISK GROUP', '2021-02-01 16:05:14'),
 (1281, 'SCG', 'STRATEGIC PROCUREMENT GROUP', '2021-02-02 09:03:44'),
 (1282, 'SMG', 'SME BUSINESS GROUP', '2021-02-01 15:49:47'),
-(1283, 'SPM', 'STRATEGIC PLANNING &AMP; PERFORMANCE MANAGEMENT GROUP', '2021-02-01 16:11:15'),
-(1284, 'TIG', 'TREASURY &AMP; INTERNATIONAL GROUP', '2021-02-01 16:12:49'),
-(1285, 'WHC', 'WHOLESALE COLLECTION, RESTRUCTURING &AMP; RECOVERY GROUP', '2021-02-01 16:06:55'),
+(1283, 'SPM', 'STRATEGIC PLANNING & PERFORMANCE MANAGEMENT GROUP', '2021-02-01 16:11:15'),
+(1284, 'TIG', 'TREASURY & INTERNATIONAL GROUP', '2021-02-01 16:12:49'),
+(1285, 'WHC', 'WHOLESALE COLLECTION, RESTRUCTURING & RECOVERY GROUP', '2021-02-01 16:06:55'),
 (1286, 'WMG', 'WEALTH MANAGEMENT GROUP', '2021-02-01 15:54:20');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user`
+-- Struktur dari tabel `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -1531,7 +1570,7 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_user`
+-- Dumping data untuk tabel `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`username`, `nm_user`, `password`, `lv_user`) VALUES
@@ -1543,107 +1582,107 @@ INSERT INTO `tbl_user` (`username`, `nm_user`, `password`, `lv_user`) VALUES
 --
 
 --
--- Indexes for table `tbl_config`
+-- Indeks untuk tabel `tbl_config`
 --
 ALTER TABLE `tbl_config`
   ADD PRIMARY KEY (`no`);
 
 --
--- Indexes for table `tbl_dok_keluar`
+-- Indeks untuk tabel `tbl_dok_keluar`
 --
 ALTER TABLE `tbl_dok_keluar`
   ADD PRIMARY KEY (`id_dokumen`);
 
 --
--- Indexes for table `tbl_dok_masuk`
+-- Indeks untuk tabel `tbl_dok_masuk`
 --
 ALTER TABLE `tbl_dok_masuk`
   ADD PRIMARY KEY (`id_dokumen`);
 
 --
--- Indexes for table `tbl_jabatan`
+-- Indeks untuk tabel `tbl_jabatan`
 --
 ALTER TABLE `tbl_jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
--- Indexes for table `tbl_jns_dokumen`
+-- Indeks untuk tabel `tbl_jns_dokumen`
 --
 ALTER TABLE `tbl_jns_dokumen`
   ADD PRIMARY KEY (`id_jns_dokumen`);
 
 --
--- Indexes for table `tbl_kategori`
+-- Indeks untuk tabel `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `tbl_pegawai`
+-- Indeks untuk tabel `tbl_pegawai`
 --
 ALTER TABLE `tbl_pegawai`
   ADD PRIMARY KEY (`id_pegawai`);
 
 --
--- Indexes for table `tbl_unit`
+-- Indeks untuk tabel `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
   ADD PRIMARY KEY (`no`);
 
 --
--- Indexes for table `tbl_user`
+-- Indeks untuk tabel `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`username`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tbl_config`
+-- AUTO_INCREMENT untuk tabel `tbl_config`
 --
 ALTER TABLE `tbl_config`
   MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `tbl_dok_keluar`
+-- AUTO_INCREMENT untuk tabel `tbl_dok_keluar`
 --
 ALTER TABLE `tbl_dok_keluar`
+  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `tbl_dok_masuk`
+--
+ALTER TABLE `tbl_dok_masuk`
   MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tbl_dok_masuk`
---
-ALTER TABLE `tbl_dok_masuk`
-  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tbl_jabatan`
+-- AUTO_INCREMENT untuk tabel `tbl_jabatan`
 --
 ALTER TABLE `tbl_jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tbl_jns_dokumen`
+-- AUTO_INCREMENT untuk tabel `tbl_jns_dokumen`
 --
 ALTER TABLE `tbl_jns_dokumen`
   MODIFY `id_jns_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tbl_kategori`
+-- AUTO_INCREMENT untuk tabel `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `tbl_pegawai`
+-- AUTO_INCREMENT untuk tabel `tbl_pegawai`
 --
 ALTER TABLE `tbl_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT for table `tbl_unit`
+-- AUTO_INCREMENT untuk tabel `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
   MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1287;
