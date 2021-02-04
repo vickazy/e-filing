@@ -71,7 +71,7 @@
 				format: 'dd/mm/yyyy',
 				todayHighlight: true,
 				autoclose: true,
-				orientation: 'top auto'
+				orientation: 'bottom auto'
 			});
 		});
 
