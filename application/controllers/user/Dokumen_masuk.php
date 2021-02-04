@@ -168,11 +168,6 @@ class Dokumen_masuk extends CI_Controller
 
 		$this->load->library('upload', $config);
 
-		$exp_1 = explode('/', input('tgl_diterima'));
-		$exp_2 = explode('/', input('tgl_dokumen'));
-		$tgl_terima = $exp_1[2] . '-' . $exp_1[1] . '-' . $exp_1[0];
-		$tgl_dokumen = $exp_2[2] . '-' . $exp_2[1] . '-' . $exp_2[0];
-
 		$data = array(
 			'jns_dokumen' => input('jns_dokumen'),
 			'no_dokumen' => strtoupper(input('no_dok')),
@@ -180,8 +175,8 @@ class Dokumen_masuk extends CI_Controller
 			'perihal' => strtoupper(input('perihal')),
 			'lampiran' => input('lampiran') == '' ? 0 : input('lampiran'),
 			'kategori' => input('kategori'),
-			'tgl_dokumen' => $tgl_dokumen,
-			'tgl_diterima' => $tgl_terima,
+			'tgl_dokumen' => parse_tgl(input('tgl_dokumen')),
+			'tgl_diterima' => parse_tgl(input('tgl_diterima')),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 
@@ -228,11 +223,6 @@ class Dokumen_masuk extends CI_Controller
 
 		$key['id_dokumen'] = input('id_dok');
 
-		$exp_1 = explode('/', input('tgl_diterima'));
-		$exp_2 = explode('/', input('tgl_dokumen'));
-		$tgl_terima = $exp_1[2] . '-' . $exp_1[1] . '-' . $exp_1[0];
-		$tgl_dokumen = $exp_2[2] . '-' . $exp_2[1] . '-' . $exp_2[0];
-
 		$data = array(
 			'jns_dokumen' => input('jns_dokumen'),
 			'no_dokumen' => strtoupper(input('no_dok')),
@@ -240,8 +230,8 @@ class Dokumen_masuk extends CI_Controller
 			'perihal' => strtoupper(input('perihal')),
 			'lampiran' => input('lampiran') == '' ? 0 : input('lampiran'),
 			'kategori' => input('kategori'),
-			'tgl_dokumen' => $tgl_dokumen,
-			'tgl_diterima' => $tgl_terima,
+			'tgl_dokumen' => parse_tgl(input('tgl_dokumen')),
+			'tgl_diterima' => parse_tgl(input('tgl_diterima')),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 

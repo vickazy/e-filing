@@ -22,7 +22,7 @@ if (!function_exists('input')) {
 
 /*
 |--------------------------------------------------------------------------
-| Parse Tanggal Database
+| Parse tanggal dari database
 |--------------------------------------------------------------------------
 |
 | merubah format tanggal database menjadi format tanggal indonesia.
@@ -46,6 +46,38 @@ if (!function_exists('tgl_indo')) {
 		return $tgl;
 	}
 }
+
+/*
+|--------------------------------------------------------------------------
+| Parse tanggal dari form input ke database
+|--------------------------------------------------------------------------
+|
+| merubah format tanggal database menjadi format tanggal indonesia.
+|
+*/
+
+if (!function_exists('parse_tgl')) {
+	function parse_tgl($date)
+	{
+		$exp = explode('/', $date);
+
+		$d = $exp[0];
+		$m = $exp[1];
+		$y = $exp[2];
+
+		$tgl = $y . '-' . $m . '-' . $d;
+		return $tgl;
+	}
+}
+
+/*
+|--------------------------------------------------------------------------
+| Check status config yang digunakan
+|--------------------------------------------------------------------------
+|
+| check status config yang digunakan untuk menjadi referensi dokumen.
+|
+*/
 
 function sts_check($id)
 {
