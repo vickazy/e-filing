@@ -220,7 +220,8 @@
 				'url': "<?= site_url('user/page/dokumen-masuk/list') ?>",
 				'type': 'POST'
 			},
-			'ordering': false
+			'ordering': false,
+			'searching': false
 		});
 
 		$('input[type="file"]').on('change', function() {
