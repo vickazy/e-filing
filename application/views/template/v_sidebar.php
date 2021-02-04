@@ -87,6 +87,13 @@
 						</ul>
 					</li>
 
+					<li class="nav-item">
+						<a href="#" class="nav-link" id="pencarian-dokumen">
+							<i class="fa fa-fw fa-search nav-icon"></i>
+							<p>Pencarian Dokumen</p>
+						</a>
+					</li>
+
 					<li class="nav-item has-treeview">
 						<a href="#" class="nav-link">
 							<i class="nav-icon fa fa-clipboard-list"></i>
