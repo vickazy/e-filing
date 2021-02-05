@@ -65,7 +65,7 @@
 															<i class="fa fa-trash"></i>
 														</span>
 													<?php else : ?>
-													<span class="text-red"><i class="fa fa-ban"></i></span>
+														<span class="text-red"><i class="fa fa-ban"></i></span>
 													<?php endif; ?>
 												</td>
 											</tr>
@@ -190,7 +190,8 @@
 						text: 'Jenis dokumen berhasil tersimpan',
 						icon: 'success',
 						timer: 2000,
-						showConfirmButton: false
+						showConfirmButton: false,
+						allowOutsideClick: false
 					}).then((result) => {
 						if (result.dismiss === Swal.DismissReason.timer) {
 							$('#modal_form').modal('hide');
@@ -229,7 +230,8 @@
 							text: 'Jenis dokumen telah dihapus',
 							icon: 'success',
 							timer: 2000,
-							showConfirmButton: false
+							showConfirmButton: false,
+							allowOutsideClick: false
 						}).then((result) => {
 							if (result.dismiss === Swal.DismissReason.timer) {
 								location.reload();

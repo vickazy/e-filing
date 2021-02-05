@@ -206,7 +206,8 @@
 						text: 'Data berhasil tersimpan',
 						icon: 'success',
 						timer: 2000,
-						showConfirmButton: false
+						showConfirmButton: false,
+						allowOutsideClick: false
 					}).then((result) => {
 						if (result.dismiss === Swal.DismissReason.timer) {
 							$('#modal_form').modal('hide');
@@ -245,7 +246,8 @@
 								text: 'Data telah berhasil dihapus',
 								icon: 'success',
 								timer: 2000,
-								showConfirmButton: false
+								showConfirmButton: false,
+								allowOutsideClick: false
 							}).then((result) => {
 								if (result.dismiss === Swal.DismissReason.timer) {
 									location.reload();
