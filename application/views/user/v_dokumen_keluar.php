@@ -209,8 +209,7 @@
 				'url': "<?= site_url('user/page/dokumen-keluar/list') ?>",
 				'type': 'POST'
 			},
-			'ordering': false,
-			'searching': false
+			'ordering': false
 		});
 
 		$('input[type="file"]').on('change', function() {
