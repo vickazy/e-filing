@@ -88,7 +88,7 @@
 					</li>
 
 					<li class="nav-item">
-						<a href="#" class="nav-link" id="pencarian-dokumen">
+						<a href="<?= site_url('user/page/pencarian-dokumen') ?>" class="nav-link" id="pencarian-dokumen">
 							<i class="fa fa-fw fa-search nav-icon"></i>
 							<p>Pencarian Dokumen</p>
 						</a>
