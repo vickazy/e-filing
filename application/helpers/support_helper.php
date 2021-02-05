@@ -72,6 +72,29 @@ if (!function_exists('parse_tgl')) {
 
 /*
 |--------------------------------------------------------------------------
+| Parse tanggal dari database ke form input
+|--------------------------------------------------------------------------
+|
+| merubah format database menjadi format tanggal form input.
+|
+*/
+
+if (!function_exists('parse_tgl_db')) {
+	function parse_tgl_db($date)
+	{
+		$exp = explode('-', $date);
+
+		$d = $exp[2];
+		$m = $exp[1];
+		$y = $exp[0];
+
+		$tgl = $d . '/' . $m . '/' . $y;
+		return $tgl;
+	}
+}
+
+/*
+|--------------------------------------------------------------------------
 | Check status config yang digunakan
 |--------------------------------------------------------------------------
 |
