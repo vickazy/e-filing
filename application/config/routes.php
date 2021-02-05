@@ -118,5 +118,5 @@ $route['user/page/dokumen-masuk/update'] = 'user/dokumen_masuk/update';
 $route['user/page/dokumen-masuk/delete/(:num)'] = 'user/dokumen_masuk/delete/$1';
 $route['user/page/dokumen-masuk/get/(:num)'] = 'user/dokumen_masuk/get_data/$1';
 
-// Laporan Dokumen Keluar
-$route['user/page/laporan-dokumen-keluar'] = 'user/laporan_dok_keluar';
+// Pencarian Dokumen
+$route['user/page/pencarian-dokumen'] = 'user/cari_dokumen';
