@@ -128,10 +128,6 @@ class Dokumen_masuk extends CI_Controller
 		$data = $this->m_dok_masuk->read($key)->row_array();
 
 		$list = unserialize($data['disposisi']);
-		$exp_1 = explode('-', $data['tgl_diterima']);
-		$exp_2 = explode('-', $data['tgl_dokumen']);
-		$tgl_terima = $exp_1[2] . '/' . $exp_1[1] . '/' . $exp_1[0];
-		$tgl_dok = $exp_2[2] . '/' . $exp_2[1] . '/' . $exp_2[0];
 
 		$respon = array(
 			'id_dokumen' => $data['id_dokumen'],
@@ -144,8 +140,9 @@ class Dokumen_masuk extends CI_Controller
 			'kategori' => $data['kategori'],
 			'catatan' => $data['catatan'],
 			'file_dokumen' => $data['file_dokumen'],
-			'tgl_dokumen' => $tgl_dok,
-			'tgl_diterima' => $tgl_terima
+			'tgl_dokumen' => parse_tgl_db($data['tgl_dokumen']),
+			'tgl_disposisi' => parse_tgl_db($data['tgl_disposisi']),
+			'tgl_diterima' => parse_tgl_db($data['tgl_diterima'])
 		);
 		echo json_encode($respon);
 		exit;
@@ -181,7 +178,7 @@ class Dokumen_masuk extends CI_Controller
 		);
 
 		if (isset($_POST['disposisi']) && is_array($_POST['disposisi'])) {
-			$data['tgl_disposisi'] = date('Y-m-d');
+			$data['tgl_disposisi'] = parse_tgl(input('tgl_disposisi'));
 			$data['disposisi'] = serialize($_POST['disposisi']);
 		} else {
 			$data['tgl_disposisi'] = null;
@@ -236,7 +233,7 @@ class Dokumen_masuk extends CI_Controller
 		);
 
 		if (isset($_POST['disposisi']) && is_array($_POST['disposisi'])) {
-			$data['tgl_disposisi'] = date('Y-m-d');
+			$data['tgl_disposisi'] = parse_tgl(input('tgl_disposisi'));
 			$data['disposisi'] = serialize($_POST['disposisi']);
 		} else {
 			$data['tgl_disposisi'] = null;

@@ -166,6 +166,20 @@
 						</div>
 					</div>
 					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Tgl. Disposisi</label>
+						<div class="col-sm-3">
+							<div class="input-group date" id="datepicker">
+								<input type="text" class="form-control" name="tgl_disposisi" id="tgl_disposisi">
+								<div class="input-group-append">
+									<span class="input-group-text">
+										<i class="fa fa-fw fa-calendar-alt"></i>
+									</span>
+								</div>
+							</div>
+							<small class="help-text" id="tgl_disposisi-feedback"></small>
+						</div>
+					</div>
+					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Disposisi</label>
 						<div class="col-sm-6">
 							<select class="form-control select2" name="disposisi[]" id="disposisi" multiple="multiple" style="width: 100%;">
@@ -354,6 +368,7 @@
 				$('#kategori').val(data.kategori);
 				$('#tgl_dokumen').val(data.tgl_dokumen);
 				$('#tgl_diterima').val(data.tgl_diterima);
+				$('#tgl_disposisi').val(data.tgl_disposisi);
 				$('.custom-file-label').text(data.file_dokumen);
 				$('#catatan').val(data.catatan);
 
@@ -386,6 +401,7 @@
 				$('#kategori').val(data.kategori).attr('disabled', true);
 				$('#tgl_dokumen').val(data.tgl_dokumen).attr('disabled', true);
 				$('#tgl_diterima').val(data.tgl_diterima).attr('disabled', true);
+				$('#tgl_disposisi').val(data.tgl_disposisi).attr('disabled', true);
 				$('#file').attr('disabled', true);
 				$('.custom-file-label').text(data.file_dokumen);
 				$('#catatan').val(data.catatan).attr('disabled', true);
