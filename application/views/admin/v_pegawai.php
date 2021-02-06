@@ -95,14 +95,14 @@
 				<form id="form" autocomplete="off">
 					<input type="hidden" class="form-control" name="id_pegawai" id="id_pegawai">
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Nama Pegawai</label>
+						<label class="col-sm-2 col-form-label">Nama Pegawai <sup class="text-red">*</sup></label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" name="nm_pegawai" id="nm_pegawai">
-							<span class="help-text"></span>
+							<span class="help-text" id="nm_pegawai-feedback"></span>
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Jabatan</label>
+						<label class="col-sm-2 col-form-label">Jabatan <sup class="text-red">*</sup></label>
 						<div class="col-sm-6">
 							<select class="form-control selectpicker" name="li_jabatan" id="li_jabatan">
 								<option selected disabled>-- Please Select --</option>
@@ -110,6 +110,7 @@
 									<option value="<?= $li['id_jabatan'] ?>"><?= $li['nm_jabatan']; ?></option>
 								<?php endforeach; ?>
 							</select>
+							<span class="help-text" id="li_jabatan-feedback"></span>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -127,119 +128,4 @@
 <?php $this->load->view('template/v_footer'); ?>
 <!-- End of Footer -->
 
-<script>
-	var save_method = '';
-
-	$('#table').DataTable({
-		'ordering': false
-	});
-
-	$('input[type="text"]').on('keypress', function() {
-		$(this).removeClass('is-invalid');
-		$(this).next().removeClass('invalid-feedback').empty();
-	});
-
-	function reset_form() {
-		$('#form')[0].reset();
-		$('.form-control').removeClass('is-invalid');
-		$('.text-help').removeClass('invalid-feedback').empty();
-	}
-
-	function show_modal() {
-		reset_form();
-		save_method = 'add';
-
-		$('#modal_form').modal('show');
-		$('.btn_save').text('Simpan');
-		$('.selectpicker').selectpicker('refresh');
-	}
-
-	function sunting(id) {
-		reset_form();
-		save_method = 'update';
-
-		$('#modal_form').modal('show');
-		$('.btn_save').text('Sunting');
-
-		$.ajax({
-			url: '<?= site_url('admin/page/pegawai/get/') ?>' + id,
-			type: 'GET',
-			dataType: 'JSON',
-			success: function(data) {
-				$('#id_pegawai').val(data.id_pegawai);
-				$('#nm_pegawai').val(data.nm_pegawai);
-				$('#li_jabatan').selectpicker('val', data.id_jabatan);
-			}
-		});
-	}
-
-	function save_form() {
-		var url = '';
-		if (save_method == 'add') url = '<?= site_url('admin/page/pegawai/insert') ?>';
-		else url = '<?= site_url('admin/page/pegawai/update') ?>';
-
-		$.ajax({
-			url: url,
-			type: 'POST',
-			dataType: 'JSON',
-			data: $('#form').serialize(),
-			success: function(data) {
-				if (data.status === true) {
-					Swal.fire({
-						title: 'Berhasil',
-						text: 'Nama pegawai telah tersimpan',
-						icon: 'success',
-						timer: 2000,
-						showConfirmButton: false,
-						allowOutsideClick: false
-					}).then((result) => {
-						if (result.dismiss === Swal.DismissReason.timer) {
-							$('#modal_form').modal('hide');
-							location.reload();
-						}
-					});
-				} else {
-					for (var i = 0; i < data.inputerror.length; i++) {
-						$('[name="' + data.inputerror[i] + '"]').addClass('is-invalid');
-						$('[name="' + data.inputerror[i] + '"]').next().addClass('invalid-feedback').text(data.error[i]);
-					}
-				}
-			}
-		});
-	}
-
-	function hapus(id) {
-		Swal.fire({
-			title: "Apakah anda yakin?",
-			text: "Data yang dihapus tidak bisa dikembalikan kembali!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: '#d33',
-			cancelButtonColor: '#3085d6',
-			confirmButtonText: 'Hapus',
-			cancelButtonText: 'Tidak'
-		}).then((result) => {
-			if (result.value) {
-				$.ajax({
-					url: "<?= site_url('admin/page/pegawai/delete/') ?>" + id,
-					type: "GET",
-					dataType: "JSON",
-					success: function(data) {
-						Swal.fire({
-							title: 'Berhasil',
-							text: 'Nama pegawai telah dihapus',
-							icon: 'success',
-							timer: 2000,
-							showConfirmButton: false,
-							allowOutsideClick: false
-						}).then((result) => {
-							if (result.dismiss === Swal.DismissReason.timer) {
-								location.reload();
-							}
-						});
-					}
-				});
-			}
-		})
-	}
-</script>
+<script src="<?= base_url('assets/script/pegawai.js') ?>"></script>

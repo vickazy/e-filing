@@ -141,7 +141,7 @@ class Dokumen_masuk extends CI_Controller
 			'catatan' => $data['catatan'],
 			'file_dokumen' => $data['file_dokumen'],
 			'tgl_dokumen' => parse_tgl_db($data['tgl_dokumen']),
-			'tgl_disposisi' => parse_tgl_db($data['tgl_disposisi']),
+			'tgl_disposisi' => $data['tgl_disposisi'] != null ? parse_tgl_db($data['tgl_disposisi']) : '',
 			'tgl_diterima' => parse_tgl_db($data['tgl_diterima'])
 		);
 		echo json_encode($respon);
