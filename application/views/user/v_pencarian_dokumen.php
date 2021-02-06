@@ -95,7 +95,7 @@
 											<th>Jenis Dokumen</th>
 											<th>Detail Dokumen</th>
 											<th style="width: 15%;">Status Dokumen</th>
-											<th style="width: 10%">Tgl. Diterima</th>
+											<th style="width: 15%">Tgl. Diterima</th>
 										</tr>
 									</thead>
 									<tbody id="dok_masuk"></tbody>
@@ -111,7 +111,7 @@
 											<th>Jenis Dokumen</th>
 											<th>Detail Dokumen</th>
 											<th>Unit Tujuan</th>
-											<th style="width: 10%;">Tgl. Dibuat</th>
+											<th style="width: 15%;">Tgl. Dibuat</th>
 											<th>Status</th>
 										</tr>
 									</thead>

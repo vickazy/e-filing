@@ -55,6 +55,16 @@ $(document).ready(function () {
 						$('.show_dok_masuk').css('display', 'none');
 						$('.show_dok_keluar').css('display', 'block');
 
+						if (respon.data.length > 0) {
+							for(let i = 0; i < respon.data.length; i++){
+								for(let j = 0; j < respon.data[i].length; j++){
+									html += respon.data[i][j];
+								}
+							}
+						} else {
+							html += '<tr><td class="text-center" colspan="6">Tidak ditemukan data yang cocok</td></tr>';
+						}
+
 						$('tbody#dok_keluar').html(html);
 					}
 

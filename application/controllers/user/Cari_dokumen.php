@@ -69,11 +69,6 @@ class Cari_dokumen extends CI_Controller
 	{
 		$this->validasi();
 
-		// $where = '';
-		// if (input('jns_dokumen') != '') $where .= "a.jns_dokumen = " . input('jns_dokumen') . "";
-		// if (input('no_dokumen') != '') $where .= " and a.no_dokumen like '%" . input('no_dokumen') . "%'";
-		// if (input('perihal') != '') $where .= " or a.perihal like '%" . input('perihal') . "%'";
-		
 		if (input('jns_dokumen') != '') $this->db->where(['a.jns_dokumen' => input('jns_dokumen')]);
 		if (input('no_dokumen') != '') $this->db->like(['a.no_dokumen' => input('no_dokumen')]);
 		if (input('perihal') != '') $this->db->like(['a.perihal' => input('perihal')]);
@@ -94,7 +89,44 @@ class Cari_dokumen extends CI_Controller
 				->join('tbl_jns_dokumen b', 'a.jns_dokumen = b.id_jns_dokumen', 'left')
 				->join('tbl_pegawai c', 'a.pembuat = c.id_pegawai', 'left')
 				->join('tbl_kategori d', 'a.kategori = d.id_kategori', 'left')->order_by('a.tgl_dokumen desc');
-			$list = $this->db->get()->result_array();
+			$data = $this->db->get()->result_array();
+
+			// buat struktur data yang akan ditampilkan pada tabel yang akan di tampung pada $list = array();
+			$list = array();
+			foreach ($data as $key => $val) {
+				$row = array();
+				$row[] = '<tr>';
+				$row[] = '<td class="text-center">' . ($key + 1) . '</td>';
+
+				$jns_dokumen = $val['jns_dokumen'] . '<br>';
+				$jns_dokumen .= $val['jns_kategori'] != 'Umum' ? '<span class="badge badge-danger"><i class="fa fa-info-circle"></i> ' . $val['jns_kategori'] . '</span>' : '';
+				$row[] = '<td>' . $jns_dokumen . '</td>';
+
+				$detail = '<b>' . $val['perihal'] . '</b><br>';
+				$detail .= '<span>Pembuat: ' . $val['nm_pegawai'] . '<hr>No. ' . $val['jns_dokumen'] . ': ' . $val['no_dokumen'] . '</span>';
+				$row[] = '<td>' . $detail . '</td>';
+
+				$exp = '';
+				foreach (unserialize($val['unit_tujuan']) as $str) {
+					$exp .= $str . '<br>';
+				}
+				$row[] = '<td>' . $exp . '</td>';
+
+				$row[] = '<td>'.tgl_indo($val['tgl_dokumen']).'</td>';
+				if ($val['sts_dokumen'] == 'Booking') {
+					$status = 'info';
+				} else if ($val['sts_dokumen'] == 'Sent') {
+					$status = 'success';
+				} else if ($val['sts_dokumen'] == 'Pending') {
+					$status = 'warning';
+				} else {
+					$status = 'danger';
+				}
+				$row[] = '<td><span class="badge badge-' . $status . '">' . $val['sts_dokumen'] . '</span></td>';
+				$row[] = '</tr>';
+
+				$list[] = $row;
+			}
 		}
 
 		echo json_encode(['status' => true, 'data' => $list]);
