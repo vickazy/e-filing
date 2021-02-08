@@ -96,6 +96,20 @@
 						</div>
 					</div>
 					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Tgl. Dokumen <sup class="text-red">*</sup></label>
+						<div class="col-sm-3">
+							<div class="input-group date" id="datepicker">
+								<input type="text" class="form-control" name="tgl_dokumen" id="tgl_dokumen">
+								<div class="input-group-append">
+									<span class="input-group-text">
+										<i class="fa fa-fw fa-calendar-alt"></i>
+									</span>
+								</div>
+							</div>
+							<small class="help-text" id="tgl_dokumen-feedback"></small>
+						</div>
+					</div>
+					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Unit Tujuan <sup class="text-red">*</sup></label>
 						<div class="col-sm-6">
 							<select class="form-control select2" name="li_tujuan[]" id="li_tujuan" multiple="multiple" style="width: 100%;">
@@ -161,6 +175,7 @@
 								<option value="Booking">Booking</option>
 								<option value="Sent">Sent</option>
 								<option value="Pending">Pending</option>
+								<option value="Cancel">Cancel</option>
 							</select>
 							<small class="help-text" id="sts_dokumen-feedback"></small>
 						</div>
@@ -291,7 +306,8 @@
 							text: data.text,
 							icon: data.icon,
 							timer: 2000,
-							showConfirmButton: false
+							showConfirmButton: false,
+							allowOutsideClick: false
 						}).then((result) => {
 							if (result.dismiss === Swal.DismissReason.timer) {
 								location.reload();
@@ -360,6 +376,7 @@
 				$('#lampiran').val(data.lampiran);
 				$('#kategori').val(data.kategori);
 				$('#sts_dokumen').val(data.sts_dokumen);
+				$('#tgl_dokumen').val(data.tgl_dokumen);
 				$('.custom-file-label').text(data.file_dokumen);
 				$('#catatan').val(data.catatan);
 
@@ -396,6 +413,7 @@
 				$('#lampiran').val(data.lampiran).attr('disabled', true);
 				$('#kategori').val(data.kategori).attr('disabled', true);
 				$('#sts_dokumen').val(data.sts_dokumen).attr('disabled', true);
+				$('#tgl_dokumen').val(data.tgl_dokumen).attr('disabled', true);
 				$('#file').attr('disabled', true);
 				$('.custom-file-label').text(data.file_dokumen);
 				$('#catatan').val(data.catatan).attr('disabled', true);
@@ -427,7 +445,8 @@
 							text: 'Dokumen telah berhasil dihapus',
 							icon: 'success',
 							timer: 2000,
-							showConfirmButton: false
+							showConfirmButton: false,
+							allowOutsideClick: false
 						}).then((result) => {
 							if (result.dismiss === Swal.DismissReason.timer) {
 								location.reload();

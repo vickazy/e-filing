@@ -53,7 +53,7 @@ class Dokumen_keluar extends CI_Controller
 		// var_dump($_POST); die;
 
 		$post = array(
-			'jns_dokumen', 'perihal', 'pembuat', 'kategori', 'sts_dokumen'
+			'jns_dokumen', 'perihal', 'pembuat', 'kategori', 'sts_dokumen', 'tgl_dokumen'
 		);
 
 		foreach ($post as $post) {
@@ -77,13 +77,6 @@ class Dokumen_keluar extends CI_Controller
 				$data['status'] = false;
 			}
 		}
-
-
-		// if (!isset($_POST['li_tujuan'])) {
-		// 	$data['inputerror'][] = 'li_tujuan';
-		// 	$data['error'][] = 'Bagian ini harus diisi';
-		// 	$data['status'] = false;
-		// }
 
 		if ($data['status'] === false) {
 			echo json_encode($data);
@@ -114,7 +107,7 @@ class Dokumen_keluar extends CI_Controller
 			}
 			$row[] = $exp;
 
-			$date = explode(' ', $li['createDate']);
+			$date = explode(' ', $li['tgl_dokumen']);
 			$row[] = tgl_indo($date[0]);
 			$row[] = $li['sts_dokumen'];
 
@@ -165,7 +158,7 @@ class Dokumen_keluar extends CI_Controller
 			'sts_dokumen' => $data['sts_dokumen'],
 			'catatan' => $data['catatan'],
 			'file_dokumen' => $data['file_dokumen'],
-			'createDate' => $data['createDate']
+			'tgl_dokumen' => parse_tgl_db($data['tgl_dokumen'])
 		);
 		echo json_encode($respon);
 		exit;
@@ -214,6 +207,7 @@ class Dokumen_keluar extends CI_Controller
 			'lampiran' => input('lampiran') == '' ? 0 : input('lampiran'),
 			'kategori' => input('kategori'),
 			'sts_dokumen' => input('sts_dokumen'),
+			'tgl_dokumen' => input('tgl_dokumen'),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 
@@ -279,6 +273,7 @@ class Dokumen_keluar extends CI_Controller
 			'lampiran' => input('lampiran') == '' ? 0 : input('lampiran'),
 			'kategori' => input('kategori'),
 			'sts_dokumen' => input('sts_dokumen'),
+			'tgl_dokumen' => input('tgl_dokumen'),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 
