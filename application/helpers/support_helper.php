@@ -52,7 +52,7 @@ if (!function_exists('tgl_indo')) {
 | Parse tanggal dari form input ke database
 |--------------------------------------------------------------------------
 |
-| merubah format tanggal database menjadi format tanggal indonesia.
+| merubah format tanggal form input menjadi format tanggal database.
 |
 */
 
@@ -66,6 +66,29 @@ if (!function_exists('parse_tgl')) {
 		$y = $exp[2];
 
 		$tgl = $y . '-' . $m . '-' . $d;
+		return $tgl;
+	}
+}
+
+/*
+|--------------------------------------------------------------------------
+| Parse tanggal dari database ke form input
+|--------------------------------------------------------------------------
+|
+| merubah format tanggal database menjadi format tanggal form input.
+|
+*/
+
+if (!function_exists('parse_tgl_db')) {
+	function parse_tgl_db($date)
+	{
+		$exp = explode('-', $date);
+
+		$d = $exp[2];
+		$m = $exp[1];
+		$y = $exp[0];
+
+		$tgl = $y . '/' . $m . '/' . $d;
 		return $tgl;
 	}
 }
