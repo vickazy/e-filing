@@ -50,6 +50,12 @@ class pegawai extends CI_Controller
 			$data['error'][] = 'Nama pegawai tidak valid, haruf huruf alphabet';
 			$data['status'] = false;
 		}
+		
+		if(input('li_jabatan') == ''){
+			$data['inputerror'][] = 'li_jabatan';
+			$data['error'][] = 'Bagian ini harus diisi';
+			$data['status'] = false;
+		}
 
 		if ($data['status'] === false) {
 			echo json_encode($data);

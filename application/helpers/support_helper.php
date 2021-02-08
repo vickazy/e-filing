@@ -88,7 +88,7 @@ if (!function_exists('parse_tgl_db')) {
 		$m = $exp[1];
 		$y = $exp[0];
 
-		$tgl = $y . '/' . $m . '/' . $d;
+		$tgl = $d . '/' . $m . '/' . $y;
 		return $tgl;
 	}
 }

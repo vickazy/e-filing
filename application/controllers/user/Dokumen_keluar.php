@@ -64,17 +64,19 @@ class Dokumen_keluar extends CI_Controller
 			}
 		}
 
-		if (input('jns_dokumen') != 3) {
-			if (!isset($_POST['li_tujuan'])) {
-				$data['inputerror'][] = 'li_tujuan';
-				$data['error'][] = 'Bagian ini harus diisi';
-				$data['status'] = false;
-			}
-		} else {
-			if (input('tujuan_lain') == '') {
-				$data['inputerror'][] = 'tujuan_lain';
-				$data['error'][] = 'Bagian ini harus diisi';
-				$data['status'] = false;
+		if (input('jns_dokumen') != '') {
+			if (input('jns_dokumen') != 3) {
+				if (!isset($_POST['li_tujuan'])) {
+					$data['inputerror'][] = 'li_tujuan';
+					$data['error'][] = 'Bagian ini harus diisi';
+					$data['status'] = false;
+				}
+			} else {
+				if (input('tujuan_lain') == '') {
+					$data['inputerror'][] = 'tujuan_lain';
+					$data['error'][] = 'Bagian ini harus diisi';
+					$data['status'] = false;
+				}
 			}
 		}
 
@@ -107,9 +109,17 @@ class Dokumen_keluar extends CI_Controller
 			}
 			$row[] = $exp;
 
-			$date = explode(' ', $li['tgl_dokumen']);
-			$row[] = tgl_indo($date[0]);
-			$row[] = $li['sts_dokumen'];
+			$row[] = tgl_indo($li['tgl_dokumen']);
+			if ($li['sts_dokumen'] == 'Booking') {
+				$status = 'info';
+			} else if ($li['sts_dokumen'] == 'Sent') {
+				$status = 'success';
+			} else if ($li['sts_dokumen'] == 'Pending') {
+				$status = 'warning';
+			} else {
+				$status = 'danger';
+			}
+			$row[] = '<span class="badge badge-' . $status . '">' . $li['sts_dokumen'] . '</span>';
 
 			$aksi = '<center>';
 			// priview file before download
@@ -118,7 +128,7 @@ class Dokumen_keluar extends CI_Controller
 
 			$aksi .= '<span class="badge badge-info" style="cursor: pointer" onclick="view(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-eye"></i></span>&nbsp;';
 			$aksi .= '<span class="badge badge-success" style="cursor: pointer" onclick="sunting(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-edit"></i></span>&nbsp;';
-			$aksi .= '<span class="badge badge-danger" style="cursor: pointer" onclick="hapus(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-trash"></i></span>';
+			// $aksi .= '<span class="badge badge-danger" style="cursor: pointer" onclick="hapus(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-trash"></i></span>';
 			$aksi .= '</center>';
 			$row[] = $aksi;
 
@@ -207,7 +217,7 @@ class Dokumen_keluar extends CI_Controller
 			'lampiran' => input('lampiran') == '' ? 0 : input('lampiran'),
 			'kategori' => input('kategori'),
 			'sts_dokumen' => input('sts_dokumen'),
-			'tgl_dokumen' => input('tgl_dokumen'),
+			'tgl_dokumen' => parse_tgl(input('tgl_dokumen')),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 
@@ -273,7 +283,7 @@ class Dokumen_keluar extends CI_Controller
 			'lampiran' => input('lampiran') == '' ? 0 : input('lampiran'),
 			'kategori' => input('kategori'),
 			'sts_dokumen' => input('sts_dokumen'),
-			'tgl_dokumen' => input('tgl_dokumen'),
+			'tgl_dokumen' => parse_tgl(input('tgl_dokumen')),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 

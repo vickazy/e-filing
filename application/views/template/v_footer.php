@@ -20,7 +20,8 @@
 							text: '',
 							icon: 'success',
 							timer: 1000,
-							showConfirmButton: false
+							showConfirmButton: false,
+							allowOutsideClick: false
 						}).then((result) => {
 							if (result.dismiss === Swal.DismissReason.timer) {
 								window.location.href = '<?= base_url() ?>';

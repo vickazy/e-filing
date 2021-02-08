@@ -32,6 +32,7 @@
 							<strong>Perhatian!</strong><br>
 							* <b>Memo</b> / <b>Nota</b> untuk unit tujuan <i>internal</i>. <br>
 							* <b>Surat</b> untuk unit tujuan <i>eksternal</i>. <br>
+							* Dokumen yang sudah dibuat tidak bisa dihapus kembali. <br>
 							* File yang sudah di upload tidak bisa dihapus kembali. <br>
 							* Untuk <b>Unit Tujuan</b> <i>internal</i> atau <b>Nama Pegawai</b> yang belum terdaftar harap hubungin bagian Administrator.
 						</blockquote>
@@ -211,6 +212,7 @@
 <?php $this->load->view('template/v_footer'); ?>
 <!-- End of Footer -->
 
+<<<<<<< HEAD
 <script>
 	var save_method = '';
 
@@ -458,3 +460,7 @@
 		})
 	}
 </script>
+=======
+<script src="<?= base_url('assets/script/dokumen-keluar.js') ?>"></script>
+
+>>>>>>> e4fc0c5127262d2901d2c095628ff608727c3027
