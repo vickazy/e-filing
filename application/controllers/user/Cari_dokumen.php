@@ -25,31 +25,6 @@ class Cari_dokumen extends CI_Controller
 		}
 	}
 
-	public function validasi()
-	{
-		$data = array();
-		$data['inputerror'] = array();
-		$data['error'] = array();
-		$data['status'] = true;
-
-		// var_dump($_POST); die;
-
-		$post = array('tipe_dokumen');
-
-		foreach ($post as $post) {
-			if (input($post) == '') {
-				$data['inputerror'][] = $post;
-				$data['error'][] = 'Bagian ini harus diisi';
-				$data['status'] = false;
-			}
-		}
-
-		if ($data['status'] === false) {
-			echo json_encode($data);
-			exit();
-		}
-	}
-
 	public function index()
 	{
 		$page = 'user/v_pencarian_dokumen';
@@ -64,69 +39,98 @@ class Cari_dokumen extends CI_Controller
 		$this->load->view($page, $data);
 	}
 
-
-	public function get_list()
+	public function get_list_dok_masuk()
 	{
-		$this->validasi();
-
 		if (input('jns_dokumen') != '') $this->db->where(['a.jns_dokumen' => input('jns_dokumen')]);
 		if (input('no_dokumen') != '') $this->db->like(['a.no_dokumen' => input('no_dokumen')]);
 		if (input('perihal') != '') $this->db->like(['a.perihal' => input('perihal')]);
 
 		$exp = explode(' - ', input('dari'));
+		if (input('dari') != '') $this->db->like(['a.dari' => $exp[0]]);
 
-		if (input('tipe_dokumen') == 'Dokumen Masuk') {
-			if (input('dari') != '') $this->db->like(['a.dari' => $exp[0]]);
+		$this->db->select('a.*, b.jns_dokumen, c.jns_kategori')->from('tbl_dok_masuk a')
+			->join('tbl_jns_dokumen b', 'a.jns_dokumen = b.id_jns_dokumen', 'left')
+			->join('tbl_kategori c', 'a.kategori = c.id_kategori', 'left')->order_by('a.tgl_diterima desc');
+		$data = $this->db->get()->result_array();
 
-			$this->db->select('a.*, b.jns_dokumen, c.jns_kategori')->from('tbl_dok_masuk a')
-				->join('tbl_jns_dokumen b', 'a.jns_dokumen = b.id_jns_dokumen', 'left')
-				->join('tbl_kategori c', 'a.kategori = c.id_kategori', 'left')->order_by('a.tgl_diterima desc');
-			$list = $this->db->get()->result_array();
-		} else {
-			if (input('dari') != '') $this->db->like(['a.unit_tujuan' => $exp[0]]);
+		$list = array();
+		foreach ($data as $key => $dt) {
+			$row = array();
 
-			$this->db->select('a.*, c.nm_pegawai, b.jns_dokumen, d.jns_kategori')->from('tbl_dok_keluar a')
-				->join('tbl_jns_dokumen b', 'a.jns_dokumen = b.id_jns_dokumen', 'left')
-				->join('tbl_pegawai c', 'a.pembuat = c.id_pegawai', 'left')
-				->join('tbl_kategori d', 'a.kategori = d.id_kategori', 'left')->order_by('a.tgl_dokumen desc');
-			$data = $this->db->get()->result_array();
+			$row['no'] = ($key + 1);
+			$kategori = $dt['jns_dokumen'] . '<br>';
+			$kategori .= $dt['jns_kategori'] != 'Umum' ? '<span class="badge badge-danger"><i class="fa fa-info-circle"></i> ' . $dt['jns_kategori'] . '</span>' : '';
+			$row['kategori'] = $kategori;
 
-			// buat struktur data yang akan ditampilkan pada tabel yang akan di tampung pada $list = array();
-			$list = array();
-			foreach ($data as $key => $val) {
-				$row = array();
-				$row[] = '<tr>';
-				$row[] = '<td class="text-center">' . ($key + 1) . '</td>';
+			$detail = '<b>' . $dt['perihal'] . '</b><br>';
+			$detail .= '<span>Dari: ' . $dt['dari'] . '<hr>No. ' . $dt['jns_dokumen'] . ': ' . $dt['no_dokumen'] . '</span>';
+			$row['detail'] = $detail;
 
-				$jns_dokumen = $val['jns_dokumen'] . '<br>';
-				$jns_dokumen .= $val['jns_kategori'] != 'Umum' ? '<span class="badge badge-danger"><i class="fa fa-info-circle"></i> ' . $val['jns_kategori'] . '</span>' : '';
-				$row[] = '<td>' . $jns_dokumen . '</td>';
-
-				$detail = '<b>' . $val['perihal'] . '</b><br>';
-				$detail .= '<span>Pembuat: ' . $val['nm_pegawai'] . '<hr>No. ' . $val['jns_dokumen'] . ': ' . $val['no_dokumen'] . '</span>';
-				$row[] = '<td>' . $detail . '</td>';
-
-				$exp = '';
-				foreach (unserialize($val['unit_tujuan']) as $str) {
-					$exp .= $str . '<br>';
-				}
-				$row[] = '<td>' . $exp . '</td>';
-
-				$row[] = '<td>'.tgl_indo($val['tgl_dokumen']).'</td>';
-				if ($val['sts_dokumen'] == 'Booking') {
-					$status = 'info';
-				} else if ($val['sts_dokumen'] == 'Sent') {
-					$status = 'success';
-				} else if ($val['sts_dokumen'] == 'Pending') {
-					$status = 'warning';
-				} else {
-					$status = 'danger';
-				}
-				$row[] = '<td><span class="badge badge-' . $status . '">' . $val['sts_dokumen'] . '</span></td>';
-				$row[] = '</tr>';
-
-				$list[] = $row;
+			$exp = '';
+			if ($dt['tgl_disposisi'] != null) {
+				$exp .= '<p class="text-success my-0"><i class="fa fa-share"></i> Didisposisikan</p>';
+				$exp .= '<span>Pada ' . tgl_indo($dt['tgl_disposisi']) . '</span>';
+			} else {
+				$exp .= '<p class="text-info"><i class="fa fa-envelope-open"></i> Diterima</p>';
 			}
+			$row['status'] = $exp;
+
+			$row['tgl_terima'] = tgl_indo($dt['tgl_diterima']);
+
+			$list[] = $row;
+		}
+
+		echo json_encode(['status' => true, 'data' => $list]);
+		exit;
+	}
+
+	public function get_list_dok_keluar()
+	{
+		if (input('jns_dokumen') != '') $this->db->where(['a.jns_dokumen' => input('jns_dokumen')]);
+		if (input('no_dokumen') != '') $this->db->like(['a.no_dokumen' => input('no_dokumen')]);
+		if (input('perihal') != '') $this->db->like(['a.perihal' => input('perihal')]);
+
+		$exp = explode(' - ', input('dari'));
+		if (input('dari') != '') $this->db->like(['a.unit_tujuan' => $exp[0]]);
+
+		$this->db->select('a.*, c.nm_pegawai, b.jns_dokumen, d.jns_kategori')->from('tbl_dok_keluar a')
+			->join('tbl_jns_dokumen b', 'a.jns_dokumen = b.id_jns_dokumen', 'left')
+			->join('tbl_pegawai c', 'a.pembuat = c.id_pegawai', 'left')
+			->join('tbl_kategori d', 'a.kategori = d.id_kategori', 'left')->order_by('a.tgl_dokumen desc');
+		$data = $this->db->get()->result_array();
+
+		$list = array();
+		foreach ($data as $key => $dt) {
+			$row = array();
+
+			$row['no'] = ($key + 1);
+			$kategori = $dt['jns_dokumen'] . '<br>';
+			$kategori .= $dt['jns_kategori'] != 'Umum' ? '<span class="badge badge-danger"><i class="fa fa-info-circle"></i> ' . $dt['jns_kategori'] . '</span>' : '';
+			$row['kategori'] = $kategori;
+
+			$detail = '<b>' . $dt['perihal'] . '</b><br>';
+			$detail .= '<span>Pembuat: ' . $dt['nm_pegawai'] . '<hr>No. ' . $dt['jns_dokumen'] . ': ' . $dt['no_dokumen'] . '</span>';
+			$row['detail'] = $detail;
+
+			$exp = '';
+			foreach (unserialize($dt['unit_tujuan']) as $val) {
+				$exp .= $val . '<br>';
+			}
+			$row['unit_tujuan'] = $exp;
+
+			$row['tgl_dokumen'] = tgl_indo($dt['tgl_dokumen']);
+			if ($dt['sts_dokumen'] == 'Booking') {
+				$status = 'info';
+			} else if ($dt['sts_dokumen'] == 'Sent') {
+				$status = 'success';
+			} else if ($dt['sts_dokumen'] == 'Pending') {
+				$status = 'warning';
+			} else {
+				$status = 'danger';
+			}
+			$row['status'] = '<span class="badge badge-' . $status . '">' . $dt['sts_dokumen'] . '</span>';
+
+			$list[] = $row;
 		}
 
 		echo json_encode(['status' => true, 'data' => $list]);
