@@ -1,4 +1,16 @@
+# prevent listing of directory contents
+Options -Indexes
+
+# block .htaccess from being read
+<Files .htaccess>
+	order allow,deny
+	deny from all
+</Files>
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
+# block access to folder
+RewriteRule (^|/)database(/|$) - [F]
+# RewriteRule (^|/)assets/script(/|$) - [F]
