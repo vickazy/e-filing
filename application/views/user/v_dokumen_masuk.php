@@ -93,7 +93,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Nomor Dokumen <sup class="text-red">*</sup></label>
+						<label class="col-sm-2 col-form-label">No. Dokumen <sup class="text-red">*</sup></label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control" name="no_dok" id="no_dok">
 							<small class="help-text" id="no_dok-feedback"></small>
