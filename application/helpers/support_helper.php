@@ -52,7 +52,7 @@ if (!function_exists('tgl_indo')) {
 | Parse tanggal dari form input ke database
 |--------------------------------------------------------------------------
 |
-| merubah format tanggal database menjadi format tanggal indonesia.
+| merubah format tanggal form input menjadi format tanggal database.
 |
 */
 
@@ -75,7 +75,7 @@ if (!function_exists('parse_tgl')) {
 | Parse tanggal dari database ke form input
 |--------------------------------------------------------------------------
 |
-| merubah format database menjadi format tanggal form input.
+| merubah format tanggal database menjadi format tanggal form input.
 |
 */
 
