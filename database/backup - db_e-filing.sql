@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2021 at 07:43 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Waktu pembuatan: 04 Feb 2021 pada 04.51
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,13 +19,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_e-filing`
+-- Database: `db_e-filing`;
 --
+drop database if exists `db_e-filing`;
+create database `db_e-filing`;
+use `db_e-filing`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_config`
+-- Struktur dari tabel `tbl_config`
 --
 
 CREATE TABLE `tbl_config` (
@@ -36,7 +40,7 @@ CREATE TABLE `tbl_config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_config`
+-- Dumping data untuk tabel `tbl_config`
 --
 
 INSERT INTO `tbl_config` (`no`, `thn_dokumen`, `nm_group`, `status`, `CreateDate`) VALUES
@@ -45,7 +49,7 @@ INSERT INTO `tbl_config` (`no`, `thn_dokumen`, `nm_group`, `status`, `CreateDate
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dok_keluar`
+-- Struktur dari tabel `tbl_dok_keluar`
 --
 
 CREATE TABLE `tbl_dok_keluar` (
@@ -62,14 +66,29 @@ CREATE TABLE `tbl_dok_keluar` (
   `catatan` text,
   `path_folder` varchar(50) DEFAULT NULL,
   `file_dokumen` text,
-  `tgl_dokumen` date NOT NULL,
   `createDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_dok_keluar`
+--
+
+INSERT INTO `tbl_dok_keluar` (`id_dokumen`, `no_dokumen`, `jns_dokumen`, `dari`, `unit_tujuan`, `perihal`, `pembuat`, `lampiran`, `kategori`, `sts_dokumen`, `catatan`, `path_folder`, `file_dokumen`, `createDate`) VALUES
+(1, '01/0001-1/SMG', 1, 'SMG', 'a:1:{i:0;s:33:\"SCG - STRATEGIC PROCUREMENT GROUP\";}', 'PENYAMPAIAN INFORMASI PERALIHAN PERLENGKAPAN KANTOR', 8, 1, '1', 'Sent', NULL, 'berkas-keluar/2021-02', 'MK-0001-SCG.PDF', '2021-02-02 13:59:59'),
+(2, '01/0002-1/SMG', 1, 'SMG', 'a:1:{i:0;s:33:\"SCG - STRATEGIC PROCUREMENT GROUP\";}', 'PENARIKAN KABEL LAN', 39, 0, '1', 'Sent', NULL, 'berkas-keluar/2021-02', 'MK-0002-SCG.PDF', '2021-02-02 14:00:36'),
+(3, '01/0001-3/SMG', 3, 'SMG', 'a:1:{i:0;s:9:\"RO & Area\";}', 'SURAT ARAHAN FOKUS BISNIS SEGMENT SEMESTER I TAHUN 2021', 8, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 14:01:52'),
+(4, '01/0002-3/SMG', 3, 'SMG', 'a:1:{i:0;s:9:\"RO & Area\";}', 'PENETAPAN SINGLE PRICE PEMBIAYAAN SME', 6, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-02 14:02:40'),
+(5, '01/0003-3/SMG', 3, 'SMG', 'a:1:{i:0;s:29:\"PT ARWIC TECHNOLOGY SOLUSINDO\";}', 'REMINDER PKS WEB SMALLHOLDER FINANCING INFORMATION SYSTEM &#40;FSIS&#41;', 34, 0, '1', 'Pending', NULL, NULL, NULL, '2021-02-02 09:28:53'),
+(6, '01/0004-3/SMG', 3, 'SMG', 'a:1:{i:0;s:15:\"AREA BALIKPAPAN\";}', 'UNDANGAN PERTEMUAN DENGAN NASABAH PLASMA SAWIT AREA BALIKPAPAN UNTUK OPTIMALISASI POTENSI PIPELINE DAN PRODUCT HOLDING DI BSI', 9, 0, '1', 'Sent', NULL, NULL, NULL, '2021-02-02 09:30:21'),
+(7, '01/0005-3/SMG', 3, 'SMG', 'a:1:{i:0;s:16:\"AREA BANJARMASIN\";}', 'UNDANGAN PERTEMUAN DENGAN NASABAH PLASMA SAWIT AREA BANJARMASIN UNTUK OPTIMALISASI POTENSI PIPELINE DAN PRODUCT HOLDING DI BSI', 9, 0, '1', 'Sent', NULL, NULL, NULL, '2021-02-02 09:30:53'),
+(8, '01/0006-3/SMG', 3, 'SMG', 'a:1:{i:0;s:14:\"AREA PONTIANAK\";}', 'UNDANGAN PERTEMUAN DENGAN NASABAH PLASMA AREA PONTIANAK UNTUK  OPTIMALISASI POTENSI PIPELINE DAN PRODUCT HOLDING DI BSI', 9, 0, '1', 'Sent', NULL, NULL, NULL, '2021-02-02 09:31:34'),
+(9, '01/0003-1/SMG', 1, 'SMG', 'a:1:{i:0;s:44:\"BP2 - HUMAN CAPITAL BUSINESS PARTNER 2 GROUP\";}', 'PERMOHONAN PENYUSUAIAN JABATAN SESUAI STRUKTUR ORGANISASI SME BUSINESS GROUP', 2, 1, '1', 'Sent', NULL, 'berkas-keluar/2021-02', 'MK-0003-HCBP_2.PDF', '2021-02-03 18:15:28'),
+(10, '01/0004-1/SMG', 1, 'SMG', 'a:1:{i:0;s:23:\"RRG - RETAIL RISK GROUP\";}', 'PERMOHONAN UNTUK DILAKUKANNYA PROSES SCORING MANUAL SELAMA APPEL BELUM IMPLEMENTASI', 10, 0, '1', 'Booking', NULL, NULL, NULL, '2021-02-03 18:53:56');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dok_masuk`
+-- Struktur dari tabel `tbl_dok_masuk`
 --
 
 CREATE TABLE `tbl_dok_masuk` (
@@ -90,10 +109,20 @@ CREATE TABLE `tbl_dok_masuk` (
   `createDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_dok_masuk`
+--
+
+INSERT INTO `tbl_dok_masuk` (`id_dokumen`, `no_dokumen`, `jns_dokumen`, `dari`, `perihal`, `lampiran`, `kategori`, `tgl_dokumen`, `tgl_disposisi`, `disposisi`, `catatan`, `path_folder`, `file_dokumen`, `tgl_diterima`, `createDate`) VALUES
+(1, '01/0003-1/DSG', 1, 'DSG - DISTRIBUTION STRATEGY GROUP', 'UNDANGAN RAPAT KOORDINASI PERIHAL RENCANA SOSIALISASI WHOLESALE RETAIL &AMP; RETAIL RETAIL KEPADA CABANG EX BNIS &AMP; EX BRIS', 0, 1, '2021-02-02', NULL, NULL, NULL, 'berkas-masuk/2021-02', 'DSG-0003.PDF', '2021-02-02', '2021-02-02 15:27:41'),
+(2, '01/0002-1/CFA', 1, 'CFA - CORPORATE FINANCE & ACCOUNTING GROUP', 'PENYAMPAIAN PANDUAN TEKNIS PEMBUKUAN & PEMBAYARAN KEPADA PIHAK KETIGA', 1, 1, '2021-02-01', '2021-02-03', 'a:1:{i:0;s:13:\"Risqi Widayat\";}', NULL, 'berkas-masuk/2021-02', 'CFA-0002.PDF', '2021-02-02', '2021-02-03 11:20:04'),
+(3, '23/0064-1/ACG', 1, 'ACG', 'PENYAMPAIAN PERUBAHAN PERSENTASE FUND TRANSFER PRICING (FTP) USD/VALAS DALAM PERHITUNGAN CONTRIBUTION MARGIN (CM) PER BULAN JANUARI 2021', 1, 1, '2021-01-29', '2021-02-03', 'a:3:{i:0;s:11:\"NUR PRATOMO\";i:1;s:13:\"RISQI WIDAYAT\";i:2;s:11:\"ROSSY YANTI\";}', 'untuk diketahui para DH', 'berkas-masuk/2021-02', 'ACG-0064.PDF', '2021-02-02', '2021-02-03 12:05:56'),
+(4, '01/002-1/PRI', 1, 'PRG - PORTFOLIO RISK & RISK INTEGRATION GROUP', 'PERMOHONAN ACTION PLAN HASIL STRESS TEST BANK SYARIAH INDONESIA', 0, 1, '2021-02-01', '2021-02-03', 'a:2:{i:0;s:13:\"RISQI WIDAYAT\";i:1;s:11:\"ROSSY YANTI\";}', NULL, 'berkas-masuk/2021-02', 'PRI-002.PDF', '2021-02-03', '2021-02-03 19:23:17');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_jabatan`
+-- Struktur dari tabel `tbl_jabatan`
 --
 
 CREATE TABLE `tbl_jabatan` (
@@ -103,7 +132,7 @@ CREATE TABLE `tbl_jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_jabatan`
+-- Dumping data untuk tabel `tbl_jabatan`
 --
 
 INSERT INTO `tbl_jabatan` (`id_jabatan`, `nm_jabatan`, `createDate`) VALUES
@@ -115,7 +144,7 @@ INSERT INTO `tbl_jabatan` (`id_jabatan`, `nm_jabatan`, `createDate`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_jns_dokumen`
+-- Struktur dari tabel `tbl_jns_dokumen`
 --
 
 CREATE TABLE `tbl_jns_dokumen` (
@@ -127,18 +156,18 @@ CREATE TABLE `tbl_jns_dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_jns_dokumen`
+-- Dumping data untuk tabel `tbl_jns_dokumen`
 --
 
 INSERT INTO `tbl_jns_dokumen` (`id_jns_dokumen`, `jns_dokumen`, `keterangan`, `counter_dokumen`, `createDate`) VALUES
-(1, 'Memo', 'Memo Group', 0, '2021-01-27 00:00:00'),
+(1, 'Memo', 'Memo Group', 4, '2021-01-27 00:00:00'),
 (2, 'Nota', 'Nota Group', 0, '2021-01-27 00:00:00'),
-(3, 'Surat', 'Surat Group', 0, '2021-01-27 00:00:00');
+(3, 'Surat', 'Surat Group', 6, '2021-01-27 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_kategori`
+-- Struktur dari tabel `tbl_kategori`
 --
 
 CREATE TABLE `tbl_kategori` (
@@ -149,7 +178,7 @@ CREATE TABLE `tbl_kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_kategori`
+-- Dumping data untuk tabel `tbl_kategori`
 --
 
 INSERT INTO `tbl_kategori` (`id_kategori`, `jns_kategori`, `keterangan`, `createDate`) VALUES
@@ -162,7 +191,7 @@ INSERT INTO `tbl_kategori` (`id_kategori`, `jns_kategori`, `keterangan`, `create
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_pegawai`
+-- Struktur dari tabel `tbl_pegawai`
 --
 
 CREATE TABLE `tbl_pegawai` (
@@ -173,7 +202,7 @@ CREATE TABLE `tbl_pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_pegawai`
+-- Dumping data untuk tabel `tbl_pegawai`
 --
 
 INSERT INTO `tbl_pegawai` (`id_pegawai`, `nm_pegawai`, `id_jabatan`, `createDate`) VALUES
@@ -224,7 +253,7 @@ INSERT INTO `tbl_pegawai` (`id_pegawai`, `nm_pegawai`, `id_jabatan`, `createDate
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_unit`
+-- Struktur dari tabel `tbl_unit`
 --
 
 CREATE TABLE `tbl_unit` (
@@ -235,7 +264,7 @@ CREATE TABLE `tbl_unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_unit`
+-- Dumping data untuk tabel `tbl_unit`
 --
 
 INSERT INTO `tbl_unit` (`no`, `kd_unit`, `nm_unit`, `createDate`) VALUES
@@ -1530,7 +1559,7 @@ INSERT INTO `tbl_unit` (`no`, `kd_unit`, `nm_unit`, `createDate`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user`
+-- Struktur dari tabel `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -1541,7 +1570,7 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_user`
+-- Dumping data untuk tabel `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`username`, `nm_user`, `password`, `lv_user`) VALUES
@@ -1553,107 +1582,107 @@ INSERT INTO `tbl_user` (`username`, `nm_user`, `password`, `lv_user`) VALUES
 --
 
 --
--- Indexes for table `tbl_config`
+-- Indeks untuk tabel `tbl_config`
 --
 ALTER TABLE `tbl_config`
   ADD PRIMARY KEY (`no`);
 
 --
--- Indexes for table `tbl_dok_keluar`
+-- Indeks untuk tabel `tbl_dok_keluar`
 --
 ALTER TABLE `tbl_dok_keluar`
   ADD PRIMARY KEY (`id_dokumen`);
 
 --
--- Indexes for table `tbl_dok_masuk`
+-- Indeks untuk tabel `tbl_dok_masuk`
 --
 ALTER TABLE `tbl_dok_masuk`
   ADD PRIMARY KEY (`id_dokumen`);
 
 --
--- Indexes for table `tbl_jabatan`
+-- Indeks untuk tabel `tbl_jabatan`
 --
 ALTER TABLE `tbl_jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
--- Indexes for table `tbl_jns_dokumen`
+-- Indeks untuk tabel `tbl_jns_dokumen`
 --
 ALTER TABLE `tbl_jns_dokumen`
   ADD PRIMARY KEY (`id_jns_dokumen`);
 
 --
--- Indexes for table `tbl_kategori`
+-- Indeks untuk tabel `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `tbl_pegawai`
+-- Indeks untuk tabel `tbl_pegawai`
 --
 ALTER TABLE `tbl_pegawai`
   ADD PRIMARY KEY (`id_pegawai`);
 
 --
--- Indexes for table `tbl_unit`
+-- Indeks untuk tabel `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
   ADD PRIMARY KEY (`no`);
 
 --
--- Indexes for table `tbl_user`
+-- Indeks untuk tabel `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`username`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tbl_config`
+-- AUTO_INCREMENT untuk tabel `tbl_config`
 --
 ALTER TABLE `tbl_config`
   MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `tbl_dok_keluar`
+-- AUTO_INCREMENT untuk tabel `tbl_dok_keluar`
 --
 ALTER TABLE `tbl_dok_keluar`
-  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `tbl_dok_masuk`
+-- AUTO_INCREMENT untuk tabel `tbl_dok_masuk`
 --
 ALTER TABLE `tbl_dok_masuk`
-  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tbl_jabatan`
+-- AUTO_INCREMENT untuk tabel `tbl_jabatan`
 --
 ALTER TABLE `tbl_jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tbl_jns_dokumen`
+-- AUTO_INCREMENT untuk tabel `tbl_jns_dokumen`
 --
 ALTER TABLE `tbl_jns_dokumen`
   MODIFY `id_jns_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tbl_kategori`
+-- AUTO_INCREMENT untuk tabel `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `tbl_pegawai`
+-- AUTO_INCREMENT untuk tabel `tbl_pegawai`
 --
 ALTER TABLE `tbl_pegawai`
   MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT for table `tbl_unit`
+-- AUTO_INCREMENT untuk tabel `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
   MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1287;
