@@ -44,7 +44,7 @@ $(document).ready(function () {
 		//replace the "Choose a file" label
 		$(this).next('.custom-file-label').html(fileName);
 
-		var size = $(this)[0].files[0].size/1024;
+		var size = $(this)[0].files[0].size / 1024;
 		console.log(size);
 
 		if ($(this)[0].files[0].type != 'application/pdf') {
@@ -87,17 +87,26 @@ $(document).ready(function () {
 			async: false,
 			success: function (data) {
 				if (data.status === true) {
+					// Swal.fire({
+					// 	title: data.title,
+					// 	text: data.text,
+					// 	icon: data.icon,
+					// 	timer: 2000,
+					// 	showConfirmButton: false,
+					// 	allowOutsideClick: false
+					// }).then((result) => {
+					// 	if (result.dismiss === Swal.DismissReason.timer) {
+					// 		location.reload();
+					// 	}
+					// });
+
 					Swal.fire({
 						title: data.title,
 						text: data.text,
-						icon: data.icon,
-						timer: 2000,
-						showConfirmButton: false,
-						allowOutsideClick: false
+						icon: data.icon
 					}).then((result) => {
-						if (result.dismiss === Swal.DismissReason.timer) {
-							location.reload();
-						}
+						// Reload the Page
+						location.reload();
 					});
 				} else {
 					$('.help-text').removeClass('text-red').empty();
