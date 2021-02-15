@@ -96,7 +96,7 @@ class Cari_dokumen extends CI_Controller
 		$this->db->select('a.*, c.nm_pegawai, b.jns_dokumen, d.jns_kategori')->from('tbl_dok_keluar a')
 			->join('tbl_jns_dokumen b', 'a.jns_dokumen = b.id_jns_dokumen', 'left')
 			->join('tbl_pegawai c', 'a.pembuat = c.id_pegawai', 'left')
-			->join('tbl_kategori d', 'a.kategori = d.id_kategori', 'left')->order_by('a.tgl_dokumen desc');
+			->join('tbl_kategori d', 'a.kategori = d.id_kategori', 'left')->order_by('a.nomor desc, a.tgl_dokumen desc');
 		$data = $this->db->get()->result_array();
 
 		$list = array();

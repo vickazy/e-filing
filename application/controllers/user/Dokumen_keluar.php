@@ -194,7 +194,12 @@ class Dokumen_keluar extends CI_Controller
 		$dokumen = $this->m_jns_dokumen->read(['id_jns_dokumen' => input('jns_dokumen')])->row_array();
 		$config = $this->m_config->read(['status' => 1])->row_array();
 
-		$no = (int) $dokumen['counter_dokumen'] + 1;
+		if (date('Y') > date('Y', strtotime($dokumen['updateDate']))) {
+			$no = 0;
+		} else {
+			$no = (int) $dokumen['counter_dokumen'] + 1;
+		}
+
 		if ($no > 999) $cond = $no;
 		elseif ($no > 99) $cond = '0' . $no;
 		elseif ($no > 9) $cond = '00' . $no;
@@ -209,6 +214,7 @@ class Dokumen_keluar extends CI_Controller
 
 		$data = array(
 			'no_dokumen' => $no_dok,
+			'nomor' => $no,
 			'jns_dokumen' => input('jns_dokumen'),
 			'dari' => $config['nm_group'],
 			// 'unit_tujuan' => serialize($_POST['li_tujuan']),
@@ -235,7 +241,7 @@ class Dokumen_keluar extends CI_Controller
 		}
 
 		$this->db->trans_begin();
-		$this->m_jns_dokumen->update(['counter_dokumen' => $no], ['id_jns_dokumen' => input('jns_dokumen')]);
+		$this->m_jns_dokumen->update(['counter_dokumen' => $no, 'updateDate' => date('Y-m-d H:i:s')], ['id_jns_dokumen' => input('jns_dokumen')]);
 		$this->m_dok_keluar->create($data);
 
 		if ($this->db->trans_status() === TRUE) {

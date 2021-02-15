@@ -12,7 +12,7 @@ class M_dokumen_keluar extends CI_Model
 	var $table = 'tbl_dok_keluar';
 	var $column_order = array(null, 'a.no_dokumen', 'a.perihal', 'c.nm_pegawai', 'b.jns_dokumen', 'd.jns_kategori', 'a.tgl_dokumen', null);
 	var $column_search = array('a.no_dokumen', 'a.perihal', 'c.nm_pegawai', 'b.jns_dokumen', 'd.jns_kategori', 'a.unit_tujuan');
-	var $order = array('a.tgl_dokumen' => 'desc');
+	var $order = array('a.nomor' => 'desc', 'a.tgl_dokumen' => 'desc');
 
 	function _get_datatable_query()
 	{
