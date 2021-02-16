@@ -126,7 +126,7 @@
 					</div>
 					<div class="form-group row">
 						<div class="offset-2 col-sm-6">
-							<input type="text" class="form-control" name="tujuan_lain" id="tujuan_lain" placeholder="Unit tujuan eksternal">
+							<input type="text" class="form-control" name="tujuan_lain" id="tujuan_lain" placeholder="Unit tujuan lain">
 							<small class="help-text" id="tujuan_lain-feedback"></small>
 						</div>
 					</div>
@@ -213,4 +213,3 @@
 <!-- End of Footer -->
 
 <script src="<?= base_url('assets/script/dokumen-keluar.js') ?>"></script>
-

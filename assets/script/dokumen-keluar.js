@@ -21,17 +21,20 @@ $(document).ready(function () {
 		$(this).next('.custom-file-label').html(fileName);
 	});
 
-	$('#jns_dokumen').on('change', function () {
-		if ($(this).val() == 3) {
-			$('#tujuan_lain').attr('disabled', false);
-			$('#li_tujuan').attr('disabled', true);
-			$('#li_tujuan-feedback').empty();
-		} else {
-			$('#tujuan_lain').attr('disabled', true);
-			$('#li_tujuan').attr('disabled', false);
-			$('#tujuan_lain-feedback').empty();
-		}
-	});
+	/** ubah attribut field berdasarkan jenis dokumen **/
+	// $('#jns_dokumen').on('change', function () {
+	// 	if ($(this).val() == 3) {
+	// 		$('#tujuan_lain').attr('disabled', false);
+	// 		$('#li_tujuan').attr('disabled', true);
+	// 		$('#li_tujuan-feedback').empty();
+	// 		$('#tujuan_lain-feedback').empty();
+	// 	} else {
+	// 		$('#tujuan_lain').attr('disabled', false);
+	// 		$('#li_tujuan').attr('disabled', false);
+	// 		$('#li_tujuan-feedback').empty();
+	// 		$('#tujuan_lain-feedback').empty();
+	// 	}
+	// });
 
 	$('#perihal').on('keypress', function () {
 		$(this).css('text-transform', 'uppercase');
@@ -51,16 +54,18 @@ $(document).ready(function () {
 			Swal.fire({
 				title: 'Oops!',
 				icon: 'warning',
-				text: 'Format file upload tidak valid!'
+				text: 'Format file upload tidak valid!',
+				allowOutsideClick: false
 			});
 			$(this).next('.custom-file-label').html('Choose file');
 			$(this).val('');
 		} else {
-			if (size > (1024 * 8)) {
+			if (size > (1024 * 20)) {
 				Swal.fire({
 					title: 'Oops!',
 					icon: 'warning',
-					text: 'Ukuran file melebihi batas, maksimal 8 MB!'
+					text: 'Ukuran file melebihi batas, maksimal 20 MB!',
+					allowOutsideClick: false
 				});
 				$(this).next('.custom-file-label').html('Choose file');
 				$(this).val('');
@@ -103,7 +108,8 @@ $(document).ready(function () {
 					Swal.fire({
 						title: data.title,
 						text: data.text,
-						icon: data.icon
+						icon: data.icon,
+						allowOutsideClick: false
 					}).then((result) => {
 						// Reload the Page
 						location.reload();
@@ -138,8 +144,10 @@ function show_modal() {
 		'display': 'block',
 		'cursor': 'pointer'
 	}).text('Simpan');
-	$('#tujuan_lain').attr('disabled', true);
-	$('#li_tujuan').attr('disabled', true);
+
+	/** disabled attribute field **/
+	// $('#tujuan_lain').attr('disabled', true);
+	// $('#li_tujuan').attr('disabled', true);
 }
 
 function sunting(id) {
@@ -159,6 +167,8 @@ function sunting(id) {
 		success: function (data) {
 			$('#id_dok').val(data.id_dokumen);
 			$('#jns_dokumen').val(data.jns_dokumen);
+
+			/** tampilkan data unit tujuan berdasarkan jenis dokumen
 			if (data.jns_dokumen != 3) {
 				$('#tujuan_lain').attr('disabled', true);
 				$('#li_tujuan').val(data.unit_tujuan).change();
@@ -166,6 +176,17 @@ function sunting(id) {
 				$('#li_tujuan').attr('disabled', true);
 				$('#tujuan_lain').val(data.unit_tujuan);
 			}
+			**/
+
+			var tujuan = data.unit_tujuan;
+			for (let i = 0; i < tujuan.length; i++) {
+				if (tujuan[i].search("-") != -1) {
+					$('#li_tujuan').val(tujuan).change();
+				} else {
+					$('#tujuan_lain').val(tujuan[0]);
+				}
+			}
+
 			$('#perihal').val(data.perihal);
 			$('#pembuat').val(data.pembuat);
 			$('#lampiran').val(data.lampiran);
@@ -196,6 +217,8 @@ function view(id) {
 		success: function (data) {
 			$('#id_dok').val(data.id_dokumen).attr('disabled', true);
 			$('#jns_dokumen').val(data.jns_dokumen).attr('disabled', true);
+			
+			/** tampilkan data unit tujuan berdasarkan jenis dokumen
 			if (data.jns_dokumen != 3) {
 				$('#tujuan_lain').attr('disabled', true);
 				$('#li_tujuan').val(data.unit_tujuan).change().attr('disabled', true);
@@ -203,6 +226,19 @@ function view(id) {
 				$('#li_tujuan').attr('disabled', true);
 				$('#tujuan_lain').val(data.unit_tujuan).attr('disabled', true);
 			}
+			**/
+			
+			var tujuan = data.unit_tujuan;
+			for(let i = 0; i < tujuan.length; i++){
+				if(tujuan[i].search("-") != -1){
+					$('#tujuan_lain').attr('disabled', true);
+					$('#li_tujuan').val(tujuan).change().attr('disabled', true);
+				} else {
+					$('#li_tujuan').attr('disabled', true);
+					$('#tujuan_lain').val(tujuan[i]).attr('disabled', true);
+				}
+			}
+
 			$('#perihal').val(data.perihal).attr('disabled', true);
 			$('#pembuat').val(data.pembuat).attr('disabled', true);
 			$('#lampiran').val(data.lampiran).attr('disabled', true);
@@ -227,7 +263,8 @@ function hapus(id) {
 		confirmButtonColor: '#d33',
 		cancelButtonColor: '#3085d6',
 		confirmButtonText: 'Hapus',
-		cancelButtonText: 'Tidak'
+		cancelButtonText: 'Tidak',
+		allowOutsideClick: false
 	}).then((result) => {
 		if (result.value) {
 			$.ajax({
