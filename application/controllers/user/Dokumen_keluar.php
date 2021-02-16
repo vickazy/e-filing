@@ -31,12 +31,12 @@ class Dokumen_keluar extends CI_Controller
 	public function index()
 	{
 		$page = 'user/v_dokumen_keluar';
-		$group = $this->m_config->read(['status' => 1])->row_array();
 
 		$data['title'] = 'Dokumen Keluar';
 		$data['jns_dokumen'] = $this->m_jns_dokumen->show();
 		$data['kategori'] = $this->m_kategori->show();
-		$qry = 'SELECT * FROM tbl_unit WHERE kd_unit != \'' . $group['nm_group'] . '\' ORDER BY CASE WHEN nm_unit LIKE \'%group%\' THEN 1 ELSE 2 END';
+		// $qry = 'SELECT * FROM tbl_unit WHERE kd_unit != \'' . $group['nm_group'] . '\' ORDER BY CASE WHEN nm_unit LIKE \'%group%\' THEN 1 ELSE 2 END';
+		$qry = 'SELECT * FROM tbl_unit ORDER BY CASE WHEN nm_unit LIKE \'%group%\' THEN 1 ELSE 2 END';
 		$data['tujuan'] = $this->db->query($qry)->result_array();
 		$data['pembuat'] = $this->m_pegawai->show();
 
@@ -64,19 +64,33 @@ class Dokumen_keluar extends CI_Controller
 			}
 		}
 
-		if (input('jns_dokumen') != '') {
-			if (input('jns_dokumen') != 3) {
-				if (!isset($_POST['li_tujuan'])) {
-					$data['inputerror'][] = 'li_tujuan';
-					$data['error'][] = 'Bagian ini harus diisi';
-					$data['status'] = false;
-				}
-			} else {
-				if (input('tujuan_lain') == '') {
-					$data['inputerror'][] = 'tujuan_lain';
-					$data['error'][] = 'Bagian ini harus diisi';
-					$data['status'] = false;
-				}
+		// if (input('jns_dokumen') != '') {
+		// 	if (input('jns_dokumen') != 3) {
+		// 		if (!isset($_POST['li_tujuan'])) {
+		// 			$data['inputerror'][] = 'li_tujuan';
+		// 			$data['error'][] = 'Bagian ini harus diisi';
+		// 			$data['status'] = false;
+		// 		}
+		// 	} else {
+		// 		if (input('tujuan_lain') == '') {
+		// 			$data['inputerror'][] = 'tujuan_lain';
+		// 			$data['error'][] = 'Bagian ini harus diisi';
+		// 			$data['status'] = false;
+		// 		}
+		// 	}
+		// }
+
+		if (!isset($_POST['li_tujuan']) && input('tujuan_lain') == '') {
+			if (!isset($_POST['li_tujuan'])) {
+				$data['inputerror'][] = 'li_tujuan';
+				$data['error'][] = 'Salah satu bagian ini harus diisi';
+				$data['status'] = false;
+			}
+
+			if (input('tujuan_lain') == '') {
+				$data['inputerror'][] = 'tujuan_lain';
+				$data['error'][] = 'Salah satu bagian ini harus diisi';
+				$data['status'] = false;
 			}
 		}
 
@@ -151,16 +165,13 @@ class Dokumen_keluar extends CI_Controller
 		$data = $this->m_dok_keluar->read($key)->row_array();
 
 		$unit = unserialize($data['unit_tujuan']);
-		$list = array_map(function ($val) {
-			return htmlspecialchars_decode($val);
-		}, $unit);
 
 		$respon = array(
 			'id_dokumen' => $data['id_dokumen'],
 			'no_dokumen' => $data['no_dokumen'],
 			'jns_dokumen' => $data['jns_dokumen'],
 			'dari' => $data['dari'],
-			'unit_tujuan' => $list,
+			'unit_tujuan' => $unit,
 			'perihal' => $data['perihal'],
 			'pembuat' => $data['pembuat'],
 			'lampiran' => $data['lampiran'],
@@ -195,7 +206,7 @@ class Dokumen_keluar extends CI_Controller
 		$config = $this->m_config->read(['status' => 1])->row_array();
 
 		if (date('Y') > date('Y', strtotime($dokumen['updateDate']))) {
-			$no = 0;
+			$no = 1;
 		} else {
 			$no = (int) $dokumen['counter_dokumen'] + 1;
 		}
