@@ -59,19 +59,18 @@ $(document).ready(function () {
 			});
 			$(this).next('.custom-file-label').html('Choose file');
 			$(this).val('');
+		} else {
+			if (size > (1024 * 50)) {
+				Swal.fire({
+					title: 'Oops!',
+					icon: 'warning',
+					text: 'Ukuran file melebihi batas, maksimal 50 MB!',
+					allowOutsideClick: false
+				});
+				$(this).next('.custom-file-label').html('Choose file');
+				$(this).val('');
+			}
 		}
-		// else {
-		// 	if (size > (1024 * 20)) {
-		// 		Swal.fire({
-		// 			title: 'Oops!',
-		// 			icon: 'warning',
-		// 			text: 'Ukuran file melebihi batas, maksimal 20 MB!',
-		// 			allowOutsideClick: false
-		// 		});
-		// 		$(this).next('.custom-file-label').html('Choose file');
-		// 		$(this).val('');
-		// 	}
-		// }
 	});
 
 	// save form
