@@ -13,19 +13,11 @@ $(document).ready(function () {
 		ordering: false,
 	});
 
-	$('input[type="file"]').on("change", function () {
-		//get the file name
-		var file = $(this).val();
-		var fileName = file.replace("C:\\fakepath\\", "");
-		//replace the "Choose a file" label
-		$(this).next(".custom-file-label").html(fileName);
-	});
-
 	$("#no_dok, #perihal").on("keypress", function () {
 		$(this).css("text-transform", "uppercase");
 	});
 
-	$("#form").on("change", 'input[type="file"]', function () {
+	$('input[type="file"]').on("change", function () {
 		//get the file name
 		var file = $(this).val();
 		var fileName = file.replace("C:\\fakepath\\", "");
@@ -33,7 +25,6 @@ $(document).ready(function () {
 		$(this).next(".custom-file-label").html(fileName);
 
 		var size = $(this)[0].files[0].size / 1024;
-		console.log("size file :" + size);
 
 		if ($(this)[0].files[0].type != "application/pdf") {
 			Swal.fire({
@@ -79,13 +70,10 @@ $(document).ready(function () {
 						title: data.title,
 						text: data.text,
 						icon: data.icon,
-						timer: 2000,
-						showConfirmButton: false,
 						allowOutsideClick: false,
 					}).then((result) => {
-						if (result.dismiss === Swal.DismissReason.timer) {
-							location.reload();
-						}
+						// Reload the Page
+						location.reload();
 					});
 				} else {
 					$(".help-text").removeClass("text-red").empty();
