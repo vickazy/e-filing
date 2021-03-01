@@ -35,11 +35,13 @@
 					</div>
 					<div class="col-12">
 						<div class="card">
-							<div class="card-header">
-								<button type="button" class="btn btn-xs btn-primary" onclick="show_modal()">
-									<i class="fa fa-plus"></i> Dokumen Masuk
-								</button>
-							</div>
+							<?php if ($_SESSION['lv_user'] == 'sekre') : ?>
+								<div class="card-header">
+									<button type="button" class="btn btn-xs btn-primary" onclick="show_modal()">
+										<i class="fa fa-plus"></i> Dokumen Masuk
+									</button>
+								</div>
+							<?php endif; ?>
 							<div class="card-body">
 								<table class="table table-bordered table-hover" id="table" style="width: 100%;">
 									<thead>
@@ -190,15 +192,17 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">File Upload</label>
-						<div class="col-sm-6">
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" name="file" id="file">
-								<label class="custom-file-label" for="file">Choose file</label>
+					<?php if ($_SESSION['lv_user'] == 'user') : ?>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">File Upload</label>
+							<div class="col-sm-6">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" name="file" id="file">
+									<label class="custom-file-label" for="file">Choose file</label>
+								</div>
 							</div>
 						</div>
-					</div>
+					<?php endif; ?>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Catatan</label>
 						<div class="col-sm-6">
