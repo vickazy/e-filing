@@ -24,15 +24,17 @@ class Auth extends CI_Controller
 		$check = $this->m_login->login($username, $password);
 		if ($check > 0) {
 			$user = $this->m_login->get_user($username);
+
 			$sess = array(
 				'username' => $user['username'],
 				'nama_user' => $user['nm_user'],
 				'lv_user' => $user['lv_user'],
+				'hak_akses' => $user['lv_user'] == 'admin' ? 'admin' : 'user',
 				'is_login' => true
 			);
 
 			$this->session->set_userdata($sess);
-			redirect(site_url($user['lv_user'] . '/page/dashboard'));
+			redirect(site_url($sess['hak_akses'] . '/page/dashboard'));
 		} else {
 			$this->session->set_flashdata('msg', 'Username atau Password tidak sesuai');
 			$this->index();

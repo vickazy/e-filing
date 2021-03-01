@@ -18,7 +18,8 @@ class Dokumen_masuk extends CI_Controller
 
 		if ($is_login === true) {
 			$cek_role = $this->m_login->get_user($this->session->userdata('username'));
-			if ($cek_role['lv_user'] != $this->uri->segment('1')) {
+			$hak_akses = $cek_role['lv_user'] == 'admin' ? 'admin' : 'user';
+			if ($hak_akses != $this->uri->segment('1')) {
 				session_destroy();
 				redirect(base_url());
 			}
@@ -105,7 +106,9 @@ class Dokumen_masuk extends CI_Controller
 
 			$aksi .= '<span class="badge badge-info" style="cursor: pointer" onclick="view(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-eye"></i></span>&nbsp;';
 			$aksi .= '<span class="badge badge-success" style="cursor: pointer" onclick="sunting(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-edit"></i></span>&nbsp;';
-			$aksi .= '<span class="badge badge-danger" style="cursor: pointer" onclick="hapus(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-trash"></i></span>';
+			if ($_SESSION['lv_user'] == 'sekre') :
+				$aksi .= '<span class="badge badge-danger" style="cursor: pointer" onclick="hapus(\'' . $li['id_dokumen'] . '\')"><i class="fa fa-trash"></i></span>';
+			endif;
 			$aksi .= '</center>';
 			$row[] = $aksi;
 
