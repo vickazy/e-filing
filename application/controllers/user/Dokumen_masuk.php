@@ -35,7 +35,8 @@ class Dokumen_masuk extends CI_Controller
 		$group = $this->m_config->read(['status' => 1])->row_array();
 
 		$data['title'] = 'Dokumen Masuk';
-		$data['jns_dokumen'] = $this->m_jns_dokumen->show();
+		// tampilkan jenis dokumen Memo, Nota, Surat saja
+		$data['jns_dokumen'] = $this->m_jns_dokumen->read(['id_jns_dokumen <=' => 3])->result_array();
 		$data['kategori'] = $this->m_kategori->show();
 		$data['pegawai'] = $this->m_pegawai->show();
 		$qry = 'SELECT * FROM tbl_unit WHERE kd_unit != \'' . $group['nm_group'] . '\' ORDER BY CASE WHEN nm_unit LIKE \'%group%\' THEN 1 ELSE 2 END';
@@ -63,6 +64,18 @@ class Dokumen_masuk extends CI_Controller
 				$data['error'][] = 'Bagian ini harus diisi';
 				$data['status'] = false;
 			}
+		}
+
+		if (isset($_POST['disposisi']) && input('tgl_disposisi') == '') {
+			$data['inputerror'][] = 'tgl_disposisi';
+			$data['error'][] = 'Bagian ini harus diisi juga';
+			$data['status'] = false;
+		}
+		
+		if (!isset($_POST['disposisi']) && input('tgl_disposisi') != '') {
+			$data['inputerror'][] = 'disposisi';
+			$data['error'][] = 'Bagian ini harus diisi juga';
+			$data['status'] = false;
 		}
 
 		if ($data['status'] === false) {
@@ -155,14 +168,28 @@ class Dokumen_masuk extends CI_Controller
 	{
 		$this->validasi();
 
+		// get jenis dokumen yang dipilih
+		$dokumen = $this->m_jns_dokumen->read(['id_jns_dokumen' => input('jns_dokumen')])->row_array();
+
 		// buat folder sesuai tahun dan bulan
 		$nm_folder = date('Y-m');
+		// buat folder sesuai dengan jenis dokumen yang dipilih
+		$nm_dok = strtoupper($dokumen['jns_dokumen']);
+
+		// periksa folder $nm_folder sudah ada atau belum
 		if (!is_dir('assets/berkas-masuk/' . $nm_folder)) {
+			// buat folder $nm_folder jika belum ada
 			mkdir('./assets/berkas-masuk/' . $nm_folder, 0777, true);
 		}
 
+		// periksa folder $nm_dok didalam folder $nm_folder sudah ada atau belum
+		if (!is_dir('assets/berkas-masuk/' . $nm_folder . '/' . $nm_dok)) {
+			// buat folder $nm_dok jika belum ada
+			mkdir('./assets/berkas-masuk/' . $nm_folder . '/' . $nm_dok, 0777, true);
+		}
+
 		$config = array(
-			'upload_path' => './assets/berkas-masuk/' . $nm_folder,
+			'upload_path' => './assets/berkas-masuk/' . $nm_folder . '/' . $nm_dok,
 			'allowed_types' => 'pdf'
 		);
 
@@ -177,20 +204,19 @@ class Dokumen_masuk extends CI_Controller
 			'kategori' => input('kategori'),
 			'tgl_dokumen' => parse_tgl(input('tgl_dokumen')),
 			'tgl_diterima' => parse_tgl(input('tgl_diterima')),
+			'tgl_disposisi' => input('tgl_disposisi') == '' ? NULL : parse_tgl(input('tgl_disposisi')),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 
-		if (isset($_POST['disposisi']) && is_array($_POST['disposisi'])) {
-			$data['tgl_disposisi'] = parse_tgl(input('tgl_disposisi'));
+		if (isset($_POST['disposisi'])) {
 			$data['disposisi'] = serialize($_POST['disposisi']);
 		} else {
-			$data['tgl_disposisi'] = null;
 			$data['disposisi'] = null;
 		}
 
 		if ($this->upload->do_upload('file')) {
 			$fileData = $this->upload->data();
-			$data['path_folder'] = 'berkas-masuk/' . $nm_folder;
+			$data['path_folder'] = 'berkas-masuk/' . $nm_folder . '/' . $nm_dok;
 			$data['file_dokumen'] = $fileData['file_name'];
 		}
 
@@ -208,14 +234,28 @@ class Dokumen_masuk extends CI_Controller
 	{
 		$this->validasi();
 
+		// get jenis dokumen yang dipilih
+		$dokumen = $this->m_jns_dokumen->read(['id_jns_dokumen' => input('jns_dokumen')])->row_array();
+
 		// buat folder sesuai tahun dan bulan
 		$nm_folder = date('Y-m');
+		// buat folder sesuai dengan jenis dokumen yang dipilih
+		$nm_dok = strtoupper($dokumen['jns_dokumen']);
+
+		// periksa folder $nm_folder sudah ada atau belum
 		if (!is_dir('assets/berkas-masuk/' . $nm_folder)) {
+			// buat folder $nm_folder jika belum ada
 			mkdir('./assets/berkas-masuk/' . $nm_folder, 0777, true);
 		}
 
+		// periksa folder $nm_dok didalam folder $nm_folder sudah ada atau belum
+		if (!is_dir('assets/berkas-masuk/' . $nm_folder . '/' . $nm_dok)) {
+			// buat folder $nm_dok jika belum ada
+			mkdir('./assets/berkas-masuk/' . $nm_folder . '/' . $nm_dok, 0777, true);
+		}
+
 		$config = array(
-			'upload_path' => './assets/berkas-masuk/' . $nm_folder,
+			'upload_path' => './assets/berkas-masuk/' . $nm_folder . '/' . $nm_dok,
 			'allowed_types' => 'pdf'
 		);
 
@@ -232,14 +272,13 @@ class Dokumen_masuk extends CI_Controller
 			'kategori' => input('kategori'),
 			'tgl_dokumen' => parse_tgl(input('tgl_dokumen')),
 			'tgl_diterima' => parse_tgl(input('tgl_diterima')),
+			'tgl_disposisi' => input('tgl_disposisi') == '' ? NULL : parse_tgl(input('tgl_disposisi')),
 			'catatan' => input('catatan') == '' ? NULL : input('catatan')
 		);
 
-		if (isset($_POST['disposisi']) && is_array($_POST['disposisi'])) {
-			$data['tgl_disposisi'] = parse_tgl(input('tgl_disposisi'));
+		if (isset($_POST['disposisi'])) {
 			$data['disposisi'] = serialize($_POST['disposisi']);
 		} else {
-			$data['tgl_disposisi'] = null;
 			$data['disposisi'] = null;
 		}
 
@@ -251,7 +290,7 @@ class Dokumen_masuk extends CI_Controller
 			$path = $this->m_dok_masuk->read($key)->row_array();
 			if ($path['path_folder'] == null) {
 				// tambahkan path_folder jika belum ada
-				$data['path_folder'] = 'berkas-masuk/' . $nm_folder;
+				$data['path_folder'] = 'berkas-masuk/' . $nm_folder . '/' . $nm_dok;
 			} else {
 				unlink('./assets/' . $path['path_folder'] . '/' . $path['file_dokumen']);
 			}

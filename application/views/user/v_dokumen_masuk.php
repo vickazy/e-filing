@@ -190,6 +190,7 @@
 									<option value="<?= $li['nm_pegawai'] ?>"><?= $li['nm_pegawai'] ?></option>
 								<?php endforeach; ?>
 							</select>
+							<small class="help-text" id="disposisi-feedback"></small>
 						</div>
 					</div>
 					<?php if ($_SESSION['lv_user'] == 'user') : ?>
