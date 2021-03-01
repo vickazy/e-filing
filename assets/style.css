@@ -16,3 +16,7 @@ span>hr {
 	margin-top: 0.2rem !important;
 	margin-bottom: 0.2rem !important;
 }
+
+.col-form-label {
+	padding-right: 0 !important;
+}
