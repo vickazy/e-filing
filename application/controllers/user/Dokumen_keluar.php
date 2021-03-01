@@ -190,28 +190,20 @@ class Dokumen_keluar extends CI_Controller
 	{
 		$this->validasi();
 
-		// buat folder sesuai tahun dan bulan
-		$nm_folder = date('Y-m');
-		if (!is_dir('assets/berkas-keluar/' . $nm_folder)) {
-			mkdir('./assets/berkas-keluar/' . $nm_folder, 0777, true);
-		}
-
-		$config = array(
-			'upload_path' => './assets/berkas-keluar/' . $nm_folder,
-			'allowed_types' => 'pdf'
-		);
-
-		$this->load->library('upload', $config);
-
+		// get jenis dokumen yang dipilih
 		$dokumen = $this->m_jns_dokumen->read(['id_jns_dokumen' => input('jns_dokumen')])->row_array();
+
 		$config = $this->m_config->read(['status' => 1])->row_array();
 
+		// set counter nomor dokumen
 		if (date('Y') > date('Y', strtotime($dokumen['updateDate']))) {
+			// reset counter nomor jika berganti tahun
 			$no = 1;
 		} else {
 			$no = (int) $dokumen['counter_dokumen'] + 1;
 		}
 
+		// set format counter nomor dokumen
 		if ($no > 999) $cond = $no;
 		elseif ($no > 99) $cond = '0' . $no;
 		elseif ($no > 9) $cond = '00' . $no;
@@ -219,10 +211,15 @@ class Dokumen_keluar extends CI_Controller
 
 		// set tahun terbitan
 		$no_dok = substr($config['thn_dokumen'], 2, 1) - 2 . substr($config['thn_dokumen'], -1);
-		// set counter nomor dokumen & kode dokumen
-		$no_dok .= '/' . $cond . '-' . $dokumen['id_jns_dokumen'];
-		// set kode group
-		$no_dok .= '/' . $config['nm_group'];
+		if ($dokumen['jns_dokumen'] == 'SPJ') {
+			// set counter nomor dokumen untuk dokumen SPJ
+			$no_dok .= '/' . $cond . '-3/SPJ';
+		} else {
+			// set counter nomor dokumen & kode dokumen
+			$no_dok .= '/' . $cond . '-' . $dokumen['id_jns_dokumen'];
+			// set kode group
+			$no_dok .= '/' . $config['nm_group'];
+		}
 
 		$data = array(
 			'no_dokumen' => $no_dok,
@@ -244,12 +241,6 @@ class Dokumen_keluar extends CI_Controller
 			$data['unit_tujuan'] = serialize($_POST['li_tujuan']);
 		} else {
 			$data['unit_tujuan'] = serialize($tujuan);
-		}
-
-		if ($this->upload->do_upload('file')) {
-			$fileData = $this->upload->data();
-			$data['path_folder'] = 'berkas-keluar/' . $nm_folder;
-			$data['file_dokumen'] = $fileData['file_name'];
 		}
 
 		$this->db->trans_begin();
@@ -278,14 +269,28 @@ class Dokumen_keluar extends CI_Controller
 	{
 		$this->validasi();
 
+		// get jenis dokumen yang dipilih
+		$dokumen = $this->m_jns_dokumen->read(['id_jns_dokumen' => input('jns_dokumen')])->row_array();
+
 		// buat folder sesuai tahun dan bulan
 		$nm_folder = date('Y-m');
+		// buat folder sesuai dengan jenis dokumen yang dipilih
+		$nm_dok = strtoupper($dokumen['jns_dokumen']);
+
+		// periksa folder $nm_folder sudah ada atau belum
 		if (!is_dir('assets/berkas-keluar/' . $nm_folder)) {
+			// buat folder $nm_folder jika belum ada
 			mkdir('./assets/berkas-keluar/' . $nm_folder, 0777, true);
+		}
+		
+		// periksa folder $nm_dok didalam folder $nm_folder sudah ada atau belum
+		if (!is_dir('assets/berkas-keluar/' . $nm_folder . '/' . $nm_dok)) {
+			// buat folder $nm_dok jika belum ada
+			mkdir('./assets/berkas-keluar/' . $nm_folder . '/' . $nm_dok, 0777, true);
 		}
 
 		$config = array(
-			'upload_path' => './assets/berkas-keluar/' . $nm_folder,
+			'upload_path' => './assets/berkas-keluar/' . $nm_folder . '/' . $nm_dok,
 			'allowed_types' => 'pdf'
 		);
 
@@ -320,7 +325,7 @@ class Dokumen_keluar extends CI_Controller
 			$path = $this->m_dok_keluar->read($key)->row_array();
 			if ($path['path_folder'] == null) {
 				// tambahkan path_folder jika belum ada
-				$data['path_folder'] = 'berkas-keluar/' . $nm_folder;
+				$data['path_folder'] = 'berkas-keluar/' . $nm_folder . '/' . $nm_dok;
 			} else {
 				unlink('./assets/' . $path['path_folder'] . '/' . $path['file_dokumen']);
 			}
