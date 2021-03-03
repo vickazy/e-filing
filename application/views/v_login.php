@@ -27,7 +27,7 @@
 		<div class="card">
 			<div class="card-header text-center my-0 py-2">
 				<img src="<?= base_url('assets/logo-bsi.png') ?>" width="150px" height="50px">
-				<h4 class="text-bold">Aplikasi Management Arsip</h4>
+				<h4 class="text-bold mt-3">Aplikasi Management Arsip</h4>
 			</div>
 			<div class="card-body login-card-body" style="border-radius: 10px;">
 				<?php $msg = $this->session->flashdata('msg');
